@@ -809,6 +809,5 @@ func init() {
 	MustRegisterCmd("omni_createpayload_simplesend", (*Omni_createpayload_simplesendCmd)(nil), flags)
 	MustRegisterCmd("omni_createpayload_issuancefixed", (*Omni_createpayload_issuancefixedCmd)(nil), flags)
 	MustRegisterCmd("omni_listproperties", (*Omni_listpropertiesCmd)(nil), flags)
-	getblockcount
 
 }
