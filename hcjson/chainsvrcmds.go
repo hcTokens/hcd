@@ -725,6 +725,27 @@ type VerifyBlissMessageCmd struct {
 	Message   string
 }
 
+//add by ycj 20180915
+type Omni_getinfoCmd struct {}
+type Omni_createpayload_simplesendCmd struct {
+	Propertyid uint32
+	Amount   string
+}
+type Omni_createpayload_issuancefixedCmd struct {
+	Ecosystem uint32
+	Type uint32
+	Previousid uint32
+	Category string
+	Subcategory string
+	Name string
+	Url string
+	Data string
+	Amount string
+}
+type  Omni_listpropertiesCmd struct {}
+
+
+
 // NewVerifyBlissMessageCmd returns a new instance which can be used to issue a
 // verifyblissmessage JSON-RPC command.
 func NewVerifyBlissMessageCmd(pubkey, signature, message string) *VerifyBlissMessageCmd {
@@ -782,4 +803,12 @@ func init() {
 	MustRegisterCmd("verifychain", (*VerifyChainCmd)(nil), flags)
 	MustRegisterCmd("verifymessage", (*VerifyMessageCmd)(nil), flags)
 	MustRegisterCmd("verifyblissmessage", (*VerifyBlissMessageCmd)(nil), flags)
+
+	//add by ycj 20180915
+	MustRegisterCmd("omni_getinfo", (*Omni_getinfoCmd)(nil), flags)
+	MustRegisterCmd("omni_createpayload_simplesend", (*Omni_createpayload_simplesendCmd)(nil), flags)
+	MustRegisterCmd("omni_createpayload_issuancefixed", (*Omni_createpayload_issuancefixedCmd)(nil), flags)
+	MustRegisterCmd("omni_listproperties", (*Omni_listpropertiesCmd)(nil), flags)
+	getblockcount
+
 }

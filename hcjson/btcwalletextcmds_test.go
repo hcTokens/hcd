@@ -37,7 +37,7 @@ func TestBtcWalletExtCmds(t *testing.T) {
 				return hcjson.NewCmd("createnewaccount", "acct")
 			},
 			staticCmd: func() interface{} {
-				return hcjson.NewCreateNewAccountCmd("acct")
+				return hcjson.NewCreateNewAccountCmd("acct","default")//return hcjson.NewCreateNewAccountCmd("acct")
 			},
 			marshalled: `{"jsonrpc":"1.0","method":"createnewaccount","params":["acct"],"id":1}`,
 			unmarshalled: &hcjson.CreateNewAccountCmd{

@@ -150,3 +150,5 @@ func MarshalResponse(id interface{}, result interface{}, rpcErr *RPCError) ([]by
 	}
 	return json.Marshal(&response)
 }
+
+
