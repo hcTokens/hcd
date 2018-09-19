@@ -586,6 +586,48 @@ func NewWalletPassphraseChangeCmd(oldPassphrase, newPassphrase string) *WalletPa
 	}
 }
 
+// WalletPassphraseChangeCmd defines the walletpassphrase JSON-RPC command.
+type OmniSendIssuanceFixedCmd struct {
+	Ecosystem   int    //(string, required) the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)\n"
+	Type        int    //(number, required) the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)\n"
+	Previousid  int    //(number, required) an identifier of a predecessor token (use 0 for new tokens)\n"
+	Category    string //(string, required) a category for the new tokens (can be \"\")\n"
+	Subcategory string //(string, required) a subcategory for the new tokens  (can be \"\")\n"
+	Name        string //(string, required) the name of the new tokens to create\n"
+	Url         string //(string, required) an URL for further information about the new tokens (can be \"\")
+	Data        string //(string, required) a description for the new tokens (can be \"\")\n"
+	Amount      string //(string, required) the number of tokens to create\n"
+}
+
+// NewOmniSendIssuanceFixedCmd returns a new instance which can be used to
+// issue a OmniSendIssuanceFixedCmd JSON-RPC command.
+func NewOmniSendIssuanceFixedCmd(ecosystem, ty, previousid int, category, subcategory, name, url, data, amount string) *OmniSendIssuanceFixedCmd {
+	return &OmniSendIssuanceFixedCmd{
+		Ecosystem:   ecosystem,
+		Type:        ty,
+		Previousid:  previousid,
+		Category:    category,
+		Subcategory: subcategory,
+		Name:        name,
+		Url:         url,
+		Data:        data,
+		Amount:      amount,
+	}
+}
+
+// OmniDealOpretrunCmd defines the walletpassphrase JSON-RPC command.
+type OmniDealOpretrunCmd struct {
+	Payload        string //opreturn content"
+}
+
+// NewOmniSendIssuanceFixedCmd returns a new instance which can be used to
+// issue a OmniSendIssuanceFixedCmd JSON-RPC command.
+func NewOmniDealOpretrunCmd(payload string) *OmniDealOpretrunCmd {
+	return &OmniDealOpretrunCmd{
+		Payload:   payload,
+	}
+}
+
 func init() {
 	// The commands in this file are only usable with a wallet server.
 	flags := UFWalletOnly
@@ -624,4 +666,6 @@ func init() {
 	MustRegisterCmd("walletlock", (*WalletLockCmd)(nil), flags)
 	MustRegisterCmd("walletpassphrase", (*WalletPassphraseCmd)(nil), flags)
 	MustRegisterCmd("walletpassphrasechange", (*WalletPassphraseChangeCmd)(nil), flags)
+	MustRegisterCmd("omni_sendissuancefixed", (*OmniSendIssuanceFixedCmd)(nil),flags)
+	MustRegisterCmd("omni_dealopreturn", (*OmniDealOpretrunCmd)(nil),flags)
 }

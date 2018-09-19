@@ -565,9 +565,9 @@ var TestNet2Params = Params{
 	Net:         wire.TestNet2,
 	DefaultPort: "12008",
 	DNSSeeds:    []string{
-		"testnet1.h.cash",
-		"testnet2.h.cash",
-		"testnet3.h.cash",
+		//"testnet1.h.cash",
+		//"testnet2.h.cash",
+		//"testnet3.h.cash",
 	},
 
 	// Chain parameters
@@ -686,7 +686,7 @@ var TestNet2Params = Params{
 	StakeVersionInterval:    144 * 2 * 7, // ~1 week
 	MaxFreshStakePerBlock:   20,          // 4*TicketsPerBlock
 	StakeEnabledHeight:      16 + 16,     // CoinbaseMaturity + TicketMaturity
-	StakeValidationHeight:   775,         // Arbitrary
+	StakeValidationHeight:   10775,         // Arbitrary
 	StakeBaseSigScript:      []byte{0x00, 0x00},
 	StakeMajorityMultiplier: 3,
 	StakeMajorityDivisor:    4,

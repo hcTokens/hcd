@@ -714,8 +714,6 @@ func handleCreateRawTransaction(s *rpcServer, cmd interface{}, closeChan <-chan 
 		}
 	}
 
-
-
 	// Return the serialized and hex-encoded transaction.  Note that this
 	// is intentionally not directly returning because the first return
 	// value is a string and it would result in returning an empty string to
