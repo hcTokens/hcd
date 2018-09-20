@@ -1,5 +1,5 @@
 // Copyright (c) 2014 The btcsuite developers
-// Copyright (c) 2015-2017 The Decred developers 
+// Copyright (c) 2015-2017 The Decred developers
 // Copyright (c) 2018-2020 The Hc developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
@@ -586,88 +586,6 @@ func NewWalletPassphraseChangeCmd(oldPassphrase, newPassphrase string) *WalletPa
 	}
 }
 
-// WalletPassphraseChangeCmd defines the walletpassphrase JSON-RPC command.
-type OmniSendIssuanceFixedCmd struct {
-	FromAddress string
-	Ecosystem   int    //(string, required) the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)\n"
-	Type        int    //(number, required) the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)\n"
-	Previousid  int    //(number, required) an identifier of a predecessor token (use 0 for new tokens)\n"
-	Category    string //(string, required) a category for the new tokens (can be \"\")\n"
-	Subcategory string //(string, required) a subcategory for the new tokens  (can be \"\")\n"
-	Name        string //(string, required) the name of the new tokens to create\n"
-	Url         string //(string, required) an URL for further information about the new tokens (can be \"\")
-	Data        string //(string, required) a description for the new tokens (can be \"\")\n"
-	Amount      string //(string, required) the number of tokens to create\n"
-}
-
-// NewOmniSendIssuanceFixedCmd returns a new instance which can be used to
-// issue a OmniSendIssuanceFixedCmd JSON-RPC command.
-func NewOmniSendIssuanceFixedCmd(fromAddress string, ecosystem, ty, previousid int, category, subcategory, name, url, data, amount string) *OmniSendIssuanceFixedCmd {
-	return &OmniSendIssuanceFixedCmd{
-		FromAddress: fromAddress,
-		Ecosystem:   ecosystem,
-		Type:        ty,
-		Previousid:  previousid,
-		Category:    category,
-		Subcategory: subcategory,
-		Name:        name,
-		Url:         url,
-		Data:        data,
-		Amount:      amount,
-	}
-}
-
-// OmniDealOpretrunCmd defines the walletpassphrase JSON-RPC command.
-type OmniDealOpretrunCmd struct {
-	Payload        string //opreturn content"
-}
-
-// NewOmniSendIssuanceFixedCmd returns a new instance which can be used to
-// issue a OmniSendIssuanceFixedCmd JSON-RPC command.
-func NewOmniDealOpretrunCmd(payload string) *OmniDealOpretrunCmd {
-	return &OmniDealOpretrunCmd{
-		Payload:   payload,
-	}
-}
-
-// OmniGetBalanceCmd defines the walletpassphrase JSON-RPC command.
-type OmniGetBalanceCmd struct {
-	Address    string //(string, required) the address\n"
-	Propertyid uint32    //(number, required) the property identifier\n"
-}
-
-// NewOmniGetBalanceCmd returns a new instance which can be used to
-// issue a OmniGetBalanceCmd JSON-RPC command.
-func NewOmniGetBalanceCmd(address string, propertyid uint32 ) *OmniGetBalanceCmd {
-	return &OmniGetBalanceCmd{
-		Address:  address,
-		Propertyid:propertyid,
-	}
-}
-
-// OmniGetBalanceCmd defines the walletpassphrase JSON-RPC command.
-type OmniSendCmd struct {
-	FromAddress     string //(string, required) the address to send from\n"
-	ToAddress       string //(string, required) the address of the receiver\n"
-	Propertyid      uint32 //(number, required) the identifier of the tokens to send\n"
-	Amount          string //(string, required) the amount to send\n"
-	RedeemAddress   *string //(string, optional) an address that can spend the transaction dust (sender by default)\n"
-	ReferenceAmount *string //(string, optional) a bitcoin amount that is sent to the receiver (minimal by default)\n"
-}
-
-// NewOmniGetBalanceCmd returns a new instance which can be used to
-// issue a OmniGetBalanceCmd JSON-RPC command.
-func NewOmniSendCmd(fromAddress, toAddress string, propid uint32, amount string , redAddr, refAmount *string) *OmniSendCmd {
-	return &OmniSendCmd{
-		FromAddress:     fromAddress,
-		ToAddress:       toAddress,
-		Propertyid:      propid,
-		Amount:          amount,
-		RedeemAddress:   redAddr,
-		ReferenceAmount: refAmount,
-	}
-}
-
 func init() {
 	// The commands in this file are only usable with a wallet server.
 	flags := UFWalletOnly
@@ -706,8 +624,4 @@ func init() {
 	MustRegisterCmd("walletlock", (*WalletLockCmd)(nil), flags)
 	MustRegisterCmd("walletpassphrase", (*WalletPassphraseCmd)(nil), flags)
 	MustRegisterCmd("walletpassphrasechange", (*WalletPassphraseChangeCmd)(nil), flags)
-	MustRegisterCmd("omni_sendissuancefixed", (*OmniSendIssuanceFixedCmd)(nil),flags)
-	MustRegisterCmd("omni_dealopreturn", (*OmniDealOpretrunCmd)(nil),flags)
-	MustRegisterCmd("omni_getbalance", (*OmniGetBalanceCmd)(nil),flags)
-	MustRegisterCmd("omni_send", (*OmniSendCmd)(nil),flags)
 }
