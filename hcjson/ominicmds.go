@@ -3,12 +3,12 @@ package hcjson
 // OmniSend // Create and broadcast a simple send transaction.
 // example: $ omnicore-cli "omni_send" "3M9qvHKtgARhqcMtM5cRT9VaiDJ5PSfQGY" "37FaKponF7zqoMLUjEiko25pDiuVH5YLEa" 1 "100.0"
 type OmniSendCmd struct {
-	Fromaddress     string  `the address to send from`
-	Toaddress       string  `the address of the receiver`
-	Propertyid      int64   `the identifier of the tokens to send`
-	Amount          string  `the amount to send`
-	Redeemaddress   *string `an address that can spend the transaction dust (sender by default)`
-	Referenceamount *string `a bitcoin amount that is sent to the receiver (minimal by default)`
+	Fromaddress     string  `json:"fromaddress" desc:"the address to send from"`
+	Toaddress       string  `json:"toaddress" desc:"the address of the receiver"`
+	Propertyid      int64   `json:"propertyid" desc:"the identifier of the tokens to send"`
+	Amount          string  `json:"amount" desc:"the amount to send"`
+	Redeemaddress   *string `json:"redeemaddress" desc:"an address that can spend the transaction dust (sender by default)"`
+	Referenceamount *string `json:"referenceamount" desc:"a bitcoin amount that is sent to the receiver (minimal by default)"`
 }
 
 func NewOmniSendCmd(fromaddress string, toaddress string, propertyid int64, amount string, redeemaddress *string, referenceamount *string) *OmniSendCmd {
@@ -25,13 +25,13 @@ func NewOmniSendCmd(fromaddress string, toaddress string, propertyid int64, amou
 // OmniSenddexsell // Place, update or cancel a sell offer on the traditional distributed OMNI/BTC exchange.
 // example: $ omnicore-cli "omni_senddexsell" "37FaKponF7zqoMLUjEiko25pDiuVH5YLEa" 1 "1.5" "0.75" 25 "0.0005" 1
 type OmniSenddexsellCmd struct {
-	Fromaddress       string `the address to send from`
-	Propertyidforsale int64  `the identifier of the tokens to list for sale (must be 1 for OMNI or 2for TOMNI)`
-	Amountforsale     string `the amount of tokens to list for sale`
-	Amountdesired     string `the amount of bitcoins desired`
-	Paymentwindow     int64  `a time limit in blocks a buyer has to pay following a successful accepting order`
-	Minacceptfee      string `a minimum mining fee a buyer has to pay to accept the offer`
-	Action            int64  `the action to take (1 for new offers, 2 to update, 3 to cancel)`
+	Fromaddress       string `json:"fromaddress" desc:"the address to send from"`
+	Propertyidforsale int64  `json:"propertyidforsale" desc:"the identifier of the tokens to list for sale (must be 1 for OMNI or 2for TOMNI)"`
+	Amountforsale     string `json:"amountforsale" desc:"the amount of tokens to list for sale"`
+	Amountdesired     string `json:"amountdesired" desc:"the amount of bitcoins desired"`
+	Paymentwindow     int64  `json:"paymentwindow" desc:"a time limit in blocks a buyer has to pay following a successful accepting order"`
+	Minacceptfee      string `json:"minacceptfee" desc:"a minimum mining fee a buyer has to pay to accept the offer"`
+	Action            int64  `json:"action" desc:"the action to take (1 for new offers, 2 to update, 3 to cancel)"`
 }
 
 func NewOmniSenddexsellCmd(fromaddress string, propertyidforsale int64, amountforsale string, amountdesired string, paymentwindow int64, minacceptfee string, action int64) *OmniSenddexsellCmd {
@@ -49,11 +49,11 @@ func NewOmniSenddexsellCmd(fromaddress string, propertyidforsale int64, amountfo
 // OmniSenddexaccept // Create and broadcast an accept offer for the specified token and amount.
 // example: $ omnicore-cli "omni_senddexaccept" \     "35URq1NN3xL6GeRKUP6vzaQVcxoJiiJKd8" "37FaKponF7zqoMLUjEiko25pDiuVH5YLEa" 1 "15.0"
 type OmniSenddexacceptCmd struct {
-	Fromaddress string `the address to send from`
-	Toaddress   string `the address of the seller`
-	Propertyid  int64  `the identifier of the token to purchase`
-	Amount      string `the amount to accept`
-	Override    bool   `override minimum accept fee and payment window checks (use with caution!)`
+	Fromaddress string `json:"fromaddress" desc:"the address to send from"`
+	Toaddress   string `json:"toaddress" desc:"the address of the seller"`
+	Propertyid  int64  `json:"propertyid" desc:"the identifier of the token to purchase"`
+	Amount      string `json:"amount" desc:"the amount to accept"`
+	Override    bool   `json:"override" desc:"override minimum accept fee and payment window checks (use with caution!)"`
 }
 
 func NewOmniSenddexacceptCmd(fromaddress string, toaddress string, propertyid int64, amount string, override bool) *OmniSenddexacceptCmd {
@@ -69,20 +69,20 @@ func NewOmniSenddexacceptCmd(fromaddress string, toaddress string, propertyid in
 // OmniSendissuancecrowdsale // Create new tokens as crowdsale.
 // example: $ omnicore-cli "omni_sendissuancecrowdsale" \     "3JYd75REX3HXn1vAU83YuGfmiPXW7BpYXo" 2 1 0 "Companies" "Bitcoin Mining" \     "Quantum Miner" "" "" 2 "100" 1483228800 30 2
 type OmniSendissuancecrowdsaleCmd struct {
-	Fromaddress       string `the address to send from`
-	Ecosystem         int64  `the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)`
-	Typo              int64  `the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)`
-	Previousid        int64  `an identifier of a predecessor token (0 for new crowdsales)`
-	Category          string `a category for the new tokens (can be "")`
-	Subcategory       string `a subcategory for the new tokens (can be "")`
-	Name              string `the name of the new tokens to create`
-	Url               string `an URL for further information about the new tokens (can be "")`
-	Data              string `a description for the new tokens (can be "")`
-	Propertyiddesired int64  `the identifier of a token eligible to participate in the crowdsale`
-	Tokensperunit     string `the amount of tokens granted per unit invested in the crowdsale`
-	Deadline          int64  `the deadline of the crowdsale as Unix timestamp`
-	Earlybonus        int64  `an early bird bonus for participants in percent per week`
-	Issuerpercentage  int64  `a percentage of tokens that will be granted to the issuer`
+	Fromaddress       string `json:"fromaddress" desc:"the address to send from"`
+	Ecosystem         int64  `json:"ecosystem" desc:"the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)"`
+	Typo              int64  `json:"type" desc:"the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)"`
+	Previousid        int64  `json:"previousid" desc:"an identifier of a predecessor token (0 for new crowdsales)"`
+	Category          string `json:"category" desc:"a category for the new tokens (can be "")"`
+	Subcategory       string `json:"subcategory" desc:"a subcategory for the new tokens (can be "")"`
+	Name              string `json:"name" desc:"the name of the new tokens to create"`
+	Url               string `json:"url" desc:"an URL for further information about the new tokens (can be "")"`
+	Data              string `json:"data" desc:"a description for the new tokens (can be "")"`
+	Propertyiddesired int64  `json:"propertyiddesired" desc:"the identifier of a token eligible to participate in the crowdsale"`
+	Tokensperunit     string `json:"tokensperunit" desc:"the amount of tokens granted per unit invested in the crowdsale"`
+	Deadline          int64  `json:"deadline" desc:"the deadline of the crowdsale as Unix timestamp"`
+	Earlybonus        int64  `json:"earlybonus" desc:"an early bird bonus for participants in percent per week"`
+	Issuerpercentage  int64  `json:"issuerpercentage" desc:"a percentage of tokens that will be granted to the issuer"`
 }
 
 func NewOmniSendissuancecrowdsaleCmd(fromaddress string, ecosystem int64, typo int64, previousid int64, category string, subcategory string, name string, url string, data string, propertyiddesired int64, tokensperunit string, deadline int64, earlybonus int64, issuerpercentage int64) *OmniSendissuancecrowdsaleCmd {
@@ -107,16 +107,16 @@ func NewOmniSendissuancecrowdsaleCmd(fromaddress string, ecosystem int64, typo i
 // OmniSendissuancefixed // Create new tokens with fixed supply.
 // example: $ omnicore-cli "omni_sendissuancefixed" \     "3Ck2kEGLJtZw9ENj2tameMCtS3HB7uRar3" 2 1 0 "Companies" "Bitcoin Mining" \     "Quantum Miner" "" "" "1000000"
 type OmniSendissuancefixedCmd struct {
-	Fromaddress string `the address to send from`
-	Ecosystem   int64  `the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)`
-	Typo        int64  `the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)`
-	Previousid  int64  `an identifier of a predecessor token (0 for new tokens)`
-	Category    string `a category for the new tokens (can be "")`
-	Subcategory string `a subcategory for the new tokens (can be "")`
-	Name        string `the name of the new tokens to create`
-	Url         string `an URL for further information about the new tokens (can be "")`
-	Data        string `a description for the new tokens (can be "")`
-	Amount      string `the number of tokens to create`
+	Fromaddress string `json:"fromaddress" desc:"the address to send from"`
+	Ecosystem   int64  `json:"ecosystem" desc:"the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)"`
+	Typo        int64  `json:"type" desc:"the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)"`
+	Previousid  int64  `json:"previousid" desc:"an identifier of a predecessor token (0 for new tokens)"`
+	Category    string `json:"category" desc:"a category for the new tokens (can be "")"`
+	Subcategory string `json:"subcategory" desc:"a subcategory for the new tokens (can be "")"`
+	Name        string `json:"name" desc:"the name of the new tokens to create"`
+	Url         string `json:"url" desc:"an URL for further information about the new tokens (can be "")"`
+	Data        string `json:"data" desc:"a description for the new tokens (can be "")"`
+	Amount      string `json:"amount" desc:"the number of tokens to create"`
 }
 
 func NewOmniSendissuancefixedCmd(fromaddress string, ecosystem int64, typo int64, previousid int64, category string, subcategory string, name string, url string, data string, amount string) *OmniSendissuancefixedCmd {
@@ -137,15 +137,15 @@ func NewOmniSendissuancefixedCmd(fromaddress string, ecosystem int64, typo int64
 // OmniSendissuancemanaged // Create new tokens with manageable supply.
 // example: $ omnicore-cli "omni_sendissuancemanaged" \     "3HsJvhr9qzgRe3ss97b1QHs38rmaLExLcH" 2 1 0 "Companies" "Bitcoin Mining" "Quantum Miner" "" ""
 type OmniSendissuancemanagedCmd struct {
-	Fromaddress string `the address to send from`
-	Ecosystem   int64  `the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)`
-	Typo        int64  `the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)`
-	Previousid  int64  `an identifier of a predecessor token (0 for new tokens)`
-	Category    string `a category for the new tokens (can be "")`
-	Subcategory string `a subcategory for the new tokens (can be "")`
-	Name        string `the name of the new tokens to create`
-	Url         string `an URL for further information about the new tokens (can be "")`
-	Data        string `a description for the new tokens (can be "")`
+	Fromaddress string `json:"fromaddress" desc:"the address to send from"`
+	Ecosystem   int64  `json:"ecosystem" desc:"the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)"`
+	Typo        int64  `json:"type" desc:"the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)"`
+	Previousid  int64  `json:"previousid" desc:"an identifier of a predecessor token (0 for new tokens)"`
+	Category    string `json:"category" desc:"a category for the new tokens (can be "")"`
+	Subcategory string `json:"subcategory" desc:"a subcategory for the new tokens (can be "")"`
+	Name        string `json:"name" desc:"the name of the new tokens to create"`
+	Url         string `json:"url" desc:"an URL for further information about the new tokens (can be "")"`
+	Data        string `json:"data" desc:"a description for the new tokens (can be "")"`
 }
 
 func NewOmniSendissuancemanagedCmd(fromaddress string, ecosystem int64, typo int64, previousid int64, category string, subcategory string, name string, url string, data string) *OmniSendissuancemanagedCmd {
@@ -165,11 +165,11 @@ func NewOmniSendissuancemanagedCmd(fromaddress string, ecosystem int64, typo int
 // OmniSendsto // Create and broadcast a send-to-owners transaction.
 // example: $ omnicore-cli "omni_sendsto" \     "32Z3tJccZuqQZ4PhJR2hxHC3tjgjA8cbqz" "37FaKponF7zqoMLUjEiko25pDiuVH5YLEa" 3 "5000"
 type OmniSendstoCmd struct {
-	Fromaddress          string  `the address to send from`
-	Propertyid           int64   `the identifier of the tokens to distribute`
-	Amount               string  `the amount to distribute`
-	Redeemaddress        *string `an address that can spend the transaction dust (sender by default)`
-	Distributionproperty *int64  `the identifier of the property holders to distribute to`
+	Fromaddress          string  `json:"fromaddress" desc:"the address to send from"`
+	Propertyid           int64   `json:"propertyid" desc:"the identifier of the tokens to distribute"`
+	Amount               string  `json:"amount" desc:"the amount to distribute"`
+	Redeemaddress        *string `json:"redeemaddress" desc:"an address that can spend the transaction dust (sender by default)"`
+	Distributionproperty *int64  `json:"distributionproperty" desc:"the identifier of the property holders to distribute to"`
 }
 
 func NewOmniSendstoCmd(fromaddress string, propertyid int64, amount string, redeemaddress *string, distributionproperty *int64) *OmniSendstoCmd {
@@ -185,11 +185,11 @@ func NewOmniSendstoCmd(fromaddress string, propertyid int64, amount string, rede
 // OmniSendgrant // Issue or grant new units of managed tokens.
 // example: $ omnicore-cli "omni_sendgrant" "3HsJvhr9qzgRe3ss97b1QHs38rmaLExLcH" "" 51 "7000"
 type OmniSendgrantCmd struct {
-	Fromaddress string  `the address to send from`
-	Toaddress   string  `the receiver of the tokens (sender by default, can be "")`
-	Propertyid  int64   `the identifier of the tokens to grant`
-	Amount      string  `the amount of tokens to create`
-	Memo        *string `a text note attached to this transaction (none by default)`
+	Fromaddress string  `json:"fromaddress" desc:"the address to send from"`
+	Toaddress   string  `json:"toaddress" desc:"the receiver of the tokens (sender by default, can be "")"`
+	Propertyid  int64   `json:"propertyid" desc:"the identifier of the tokens to grant"`
+	Amount      string  `json:"amount" desc:"the amount of tokens to create"`
+	Memo        *string `json:"memo" desc:"a text note attached to this transaction (none by default)"`
 }
 
 func NewOmniSendgrantCmd(fromaddress string, toaddress string, propertyid int64, amount string, memo *string) *OmniSendgrantCmd {
@@ -205,10 +205,10 @@ func NewOmniSendgrantCmd(fromaddress string, toaddress string, propertyid int64,
 // OmniSendrevoke // Revoke units of managed tokens.
 // example: $ omnicore-cli "omni_sendrevoke" "3HsJvhr9qzgRe3ss97b1QHs38rmaLExLcH" "" 51 "100"
 type OmniSendrevokeCmd struct {
-	Fromaddress string  `the address to send from`
-	Propertyid  int64   `the identifier of the tokens to revoke`
-	Amount      string  `the amount of tokens to revoke`
-	Memo        *string `a text note attached to this transaction (none by default)`
+	Fromaddress string  `json:"fromaddress" desc:"the address to send from"`
+	Propertyid  int64   `json:"propertyid" desc:"the identifier of the tokens to revoke"`
+	Amount      string  `json:"amount" desc:"the amount of tokens to revoke"`
+	Memo        *string `json:"memo" desc:"a text note attached to this transaction (none by default)"`
 }
 
 func NewOmniSendrevokeCmd(fromaddress string, propertyid int64, amount string, memo *string) *OmniSendrevokeCmd {
@@ -223,8 +223,8 @@ func NewOmniSendrevokeCmd(fromaddress string, propertyid int64, amount string, m
 // OmniSendclosecrowdsale // Manually close a crowdsale.
 // example: $ omnicore-cli "omni_sendclosecrowdsale" "3JYd75REX3HXn1vAU83YuGfmiPXW7BpYXo" 70
 type OmniSendclosecrowdsaleCmd struct {
-	Fromaddress string `the address associated with the crowdsale to close`
-	Propertyid  int64  `the identifier of the crowdsale to close`
+	Fromaddress string `json:"fromaddress" desc:"the address associated with the crowdsale to close"`
+	Propertyid  int64  `json:"propertyid" desc:"the identifier of the crowdsale to close"`
 }
 
 func NewOmniSendclosecrowdsaleCmd(fromaddress string, propertyid int64) *OmniSendclosecrowdsaleCmd {
@@ -237,11 +237,11 @@ func NewOmniSendclosecrowdsaleCmd(fromaddress string, propertyid int64) *OmniSen
 // OmniSendtrade // Place a trade offer on the distributed token exchange.
 // example: $ omnicore-cli "omni_sendtrade" "3BydPiSLPP3DR5cf726hDQ89fpqWLxPKLR" 31 "250.0" 1 "10.0"
 type OmniSendtradeCmd struct {
-	Fromaddress       string `the address to trade with`
-	Propertyidforsale int64  `the identifier of the tokens to list for sale`
-	Amountforsale     string `the amount of tokens to list for sale`
-	Propertiddesired  int64  `the identifier of the tokens desired in exchange`
-	Amountdesired     string `the amount of tokens desired in exchange`
+	Fromaddress       string `json:"fromaddress" desc:"the address to trade with"`
+	Propertyidforsale int64  `json:"propertyidforsale" desc:"the identifier of the tokens to list for sale"`
+	Amountforsale     string `json:"amountforsale" desc:"the amount of tokens to list for sale"`
+	Propertiddesired  int64  `json:"propertiddesired" desc:"the identifier of the tokens desired in exchange"`
+	Amountdesired     string `json:"amountdesired" desc:"the amount of tokens desired in exchange"`
 }
 
 func NewOmniSendtradeCmd(fromaddress string, propertyidforsale int64, amountforsale string, propertiddesired int64, amountdesired string) *OmniSendtradeCmd {
@@ -257,11 +257,11 @@ func NewOmniSendtradeCmd(fromaddress string, propertyidforsale int64, amountfors
 // OmniSendcanceltradesbyprice // Cancel offers on the distributed token exchange with the specified price.
 // example: $ omnicore-cli "omni_sendcanceltradesbyprice" "3BydPiSLPP3DR5cf726hDQ89fpqWLxPKLR" 31 "100.0" 1 "5.0"
 type OmniSendcanceltradesbypriceCmd struct {
-	Fromaddress       string `the address to trade with`
-	Propertyidforsale int64  `the identifier of the tokens listed for sale`
-	Amountforsale     string `the amount of tokens to listed for sale`
-	Propertiddesired  int64  `the identifier of the tokens desired in exchange`
-	Amountdesired     string `the amount of tokens desired in exchange`
+	Fromaddress       string `json:"fromaddress" desc:"the address to trade with"`
+	Propertyidforsale int64  `json:"propertyidforsale" desc:"the identifier of the tokens listed for sale"`
+	Amountforsale     string `json:"amountforsale" desc:"the amount of tokens to listed for sale"`
+	Propertiddesired  int64  `json:"propertiddesired" desc:"the identifier of the tokens desired in exchange"`
+	Amountdesired     string `json:"amountdesired" desc:"the amount of tokens desired in exchange"`
 }
 
 func NewOmniSendcanceltradesbypriceCmd(fromaddress string, propertyidforsale int64, amountforsale string, propertiddesired int64, amountdesired string) *OmniSendcanceltradesbypriceCmd {
@@ -277,9 +277,9 @@ func NewOmniSendcanceltradesbypriceCmd(fromaddress string, propertyidforsale int
 // OmniSendcanceltradesbypair // Cancel all offers on the distributed token exchange with the given currency pair.
 // example: $ omnicore-cli "omni_sendcanceltradesbypair" "3BydPiSLPP3DR5cf726hDQ89fpqWLxPKLR" 1 31
 type OmniSendcanceltradesbypairCmd struct {
-	Fromaddress       string `the address to trade with`
-	Propertyidforsale int64  `the identifier of the tokens listed for sale`
-	Propertiddesired  int64  `the identifier of the tokens desired in exchange`
+	Fromaddress       string `json:"fromaddress" desc:"the address to trade with"`
+	Propertyidforsale int64  `json:"propertyidforsale" desc:"the identifier of the tokens listed for sale"`
+	Propertiddesired  int64  `json:"propertiddesired" desc:"the identifier of the tokens desired in exchange"`
 }
 
 func NewOmniSendcanceltradesbypairCmd(fromaddress string, propertyidforsale int64, propertiddesired int64) *OmniSendcanceltradesbypairCmd {
@@ -293,8 +293,8 @@ func NewOmniSendcanceltradesbypairCmd(fromaddress string, propertyidforsale int6
 // OmniSendcancelalltrades // Cancel all offers on the distributed token exchange.
 // example: $ omnicore-cli "omni_sendcancelalltrades" "3BydPiSLPP3DR5cf726hDQ89fpqWLxPKLR" 1
 type OmniSendcancelalltradesCmd struct {
-	Fromaddress string `the address to trade with`
-	Ecosystem   int64  `the ecosystem of the offers to cancel (1 for main ecosystem, 2 for test ecosystem)`
+	Fromaddress string `json:"fromaddress" desc:"the address to trade with"`
+	Ecosystem   int64  `json:"ecosystem" desc:"the ecosystem of the offers to cancel (1 for main ecosystem, 2 for test ecosystem)"`
 }
 
 func NewOmniSendcancelalltradesCmd(fromaddress string, ecosystem int64) *OmniSendcancelalltradesCmd {
@@ -307,9 +307,9 @@ func NewOmniSendcancelalltradesCmd(fromaddress string, ecosystem int64) *OmniSen
 // OmniSendchangeissuer // Change the issuer on record of the given tokens.
 // example: $ omnicore-cli "omni_sendchangeissuer" \     "1ARjWDkZ7kT9fwjPrjcQyvbXDkEySzKHwu" "3HTHRxu3aSDV4deakjC7VmsiUp7c6dfbvs" 3
 type OmniSendchangeissuerCmd struct {
-	Fromaddress string `the address associated with the tokens`
-	Toaddress   string `the address to transfer administrative control to`
-	Propertyid  int64  `the identifier of the tokens`
+	Fromaddress string `json:"fromaddress" desc:"the address associated with the tokens"`
+	Toaddress   string `json:"toaddress  " desc:"the address to transfer administrative control to"`
+	Propertyid  int64  `json:"propertyid" desc:"the identifier of the tokens"`
 }
 
 func NewOmniSendchangeissuerCmd(fromaddress string, toaddress string, propertyid int64) *OmniSendchangeissuerCmd {
@@ -323,11 +323,11 @@ func NewOmniSendchangeissuerCmd(fromaddress string, toaddress string, propertyid
 // OmniSendall // Transfers all available tokens in the given ecosystem to the recipient.
 // example: $ omnicore-cli "omni_sendall" "3M9qvHKtgARhqcMtM5cRT9VaiDJ5PSfQGY" "37FaKponF7zqoMLUjEiko25pDiuVH5YLEa" 2
 type OmniSendallCmd struct {
-	Fromaddress     string  `the address to send from`
-	Toaddress       string  `the address of the receiver`
-	Ecosystem       int64   `the ecosystem of the tokens to send (1 for main ecosystem, 2 for test ecosystem)`
-	Redeemaddress   *string `an address that can spend the transaction dust (sender by default)`
-	Referenceamount *string `a bitcoin amount that is sent to the receiver (minimal by default)`
+	Fromaddress     string  `json:"fromaddress" desc:"the address to send from"`
+	Toaddress       string  `json:"toaddress  " desc:"the address of the receiver"`
+	Ecosystem       int64   `json:"ecosystem" desc:"the ecosystem of the tokens to send (1 for main ecosystem, 2 for test ecosystem)"`
+	Redeemaddress   *string `json:"redeemaddress" desc:"an address that can spend the transaction dust (sender by default)"`
+	Referenceamount *string `json:"referenceamount" desc:"a bitcoin amount that is sent to the receiver (minimal by default)"`
 }
 
 func NewOmniSendallCmd(fromaddress string, toaddress string, ecosystem int64, redeemaddress *string, referenceamount *string) *OmniSendallCmd {
@@ -343,8 +343,8 @@ func NewOmniSendallCmd(fromaddress string, toaddress string, ecosystem int64, re
 // OmniSendenablefreezing // Enables address freezing for a centrally managed property.
 // example: $ omnicore-cli "omni_sendenablefreezing" "3M9qvHKtgARhqcMtM5cRT9VaiDJ5PSfQGY" 2
 type OmniSendenablefreezingCmd struct {
-	Fromaddress string `the address to send from (must be issuer of a managed property)`
-	Propertyid  int64  `the identifier of the tokens`
+	Fromaddress string `json:"fromaddress" desc:"the address to send from (must be issuer of a managed property)"`
+	Propertyid  int64  `json:"propertyid" desc:"the identifier of the tokens"`
 }
 
 func NewOmniSendenablefreezingCmd(fromaddress string, propertyid int64) *OmniSendenablefreezingCmd {
@@ -358,8 +358,8 @@ func NewOmniSendenablefreezingCmd(fromaddress string, propertyid int64) *OmniSen
 // IMPORTANT NOTE:  Disabling freezing for a property will UNFREEZE all frozen addresses for that property!
 // example: $ omnicore-cli "omni_senddisablefreezing" "3M9qvHKtgARhqcMtM5cRT9VaiDJ5PSfQGY" 2
 type OmniSenddisablefreezingCmd struct {
-	Fromaddress string `the address to send from (must be issuer of a managed property)`
-	Propertyid  int64  `the identifier of the tokens`
+	Fromaddress string `json:"fromaddress" desc:"the address to send from (must be issuer of a managed property)"`
+	Propertyid  int64  `json:"propertyid" desc:"the identifier of the tokens"`
 }
 
 func NewOmniSenddisablefreezingCmd(fromaddress string, propertyid int64) *OmniSenddisablefreezingCmd {
@@ -373,10 +373,10 @@ func NewOmniSenddisablefreezingCmd(fromaddress string, propertyid int64) *OmniSe
 // Note: Only the issuer may freeze tokens, and only if the token is of the managed type with the freezing option enabled.
 // example: $ omnicore-cli "omni_sendfreeze" "3M9qvHKtgARhqcMtM5cRT9VaiDJ5PSfQGY" "3HTHRxu3aSDV4deakjC7VmsiUp7c6dfbvs" 2 1000
 type OmniSendfreezeCmd struct {
-	Fromaddress string `the address to send from (must be issuer of a managed property with freezing enabled`
-	Toaddress   string `the address to freeze`
-	Propertyid  int64  `the identifier of the tokens to freeze`
-	Amount      string `the amount to freeze (note: currently unused, frozen addresses cannot transact the property)`
+	Fromaddress string `json:"fromaddress" desc:"the address to send from (must be issuer of a managed property with freezing enabled"`
+	Toaddress   string `json:"toaddress" desc:"the address to freeze"`
+	Propertyid  int64  `json:"propertyid" desc:"the identifier of the tokens to freeze"`
+	Amount      string `json:"amount" desc:"the amount to freeze (note: currently unused, frozen addresses cannot transact the property)"`
 }
 
 func NewOmniSendfreezeCmd(fromaddress string, toaddress string, propertyid int64, amount string) *OmniSendfreezeCmd {
@@ -392,10 +392,10 @@ func NewOmniSendfreezeCmd(fromaddress string, toaddress string, propertyid int64
 // Note: Only the issuer may unfreeze tokens
 // example: $ omnicore-cli "omni_sendunfreeze" "3M9qvHKtgARhqcMtM5cRT9VaiDJ5PSfQGY" "3HTHRxu3aSDV4deakjC7VmsiUp7c6dfbvs" 2 1000
 type OmniSendunfreezeCmd struct {
-	Fromaddress string `the address to send from (must be issuer of a managed property with freezing enabled`
-	Toaddress   string `the address to unfreeze`
-	Propertyid  int64  `the identifier of the tokens to unfreeze`
-	Amount      string `the amount to unfreeze (note: currently unused`
+	Fromaddress string `json:"fromaddress" desc:"the address to send from (must be issuer of a managed property with freezing enabled"`
+	Toaddress   string `json:"toaddress" desc:"the address to unfreeze"`
+	Propertyid  int64  `json:"propertyid" desc:"the identifier of the tokens to unfreeze"`
+	Amount      string `json:"amount" desc:"the amount to unfreeze (note: currently unused"`
 }
 
 func NewOmniSendunfreezeCmd(fromaddress string, toaddress string, propertyid int64, amount string) *OmniSendunfreezeCmd {
@@ -410,11 +410,11 @@ func NewOmniSendunfreezeCmd(fromaddress string, toaddress string, propertyid int
 // OmniSendrawtx // Broadcasts a raw Omni Layer transaction.
 // example: $ omnicore-cli "omni_sendrawtx" \     "1MCHESTptvd2LnNp7wmr2sGTpRomteAkq8" "000000000000000100000000017d7840" \     "1EqTta1Rt8ixAA32DuC29oukbsSWU62qAV"
 type OmniSendrawtxCmd struct {
-	Fromaddress      string  `the address to send from`
-	Rawtransaction   string  `the hex-encoded raw transaction`
-	Referenceaddress *string `a reference address (none by default)`
-	Redeemaddress    *string `an address that can spend the transaction dust (sender by default)`
-	Referenceamount  *string `a bitcoin amount that is sent to the receiver (minimal by default)`
+	Fromaddress      string  `json:"fromaddress" desc:"the address to send from"`
+	Rawtransaction   string  `json:"rawtransaction" desc:"the hex-encoded raw transaction"`
+	Referenceaddress *string `json:"referenceaddress" desc:"a reference address (none by default)"`
+	Redeemaddress    *string `json:"redeemaddress" desc:"an address that can spend the transaction dust (sender by default)"`
+	Referenceamount  *string `json:"referenceamount" desc:"a bitcoin amount that is sent to the receiver (minimal by default)"`
 }
 
 func NewOmniSendrawtxCmd(fromaddress string, rawtransaction string, referenceaddress *string, redeemaddress *string, referenceamount *string) *OmniSendrawtxCmd {
@@ -431,11 +431,11 @@ func NewOmniSendrawtxCmd(fromaddress string, rawtransaction string, referenceadd
 // All bitcoins from the sender are consumed and if there are bitcoins missing, they are taken from the specified fee source. Change is sent to the fee source!
 // example: $ omnicore-cli "omni_funded_send" "1DFa5bT6KMEr6ta29QJouainsjaNBsJQhH" \     "15cWrfuvMxyxGst2FisrQcvcpF48x6sXoH" 1 "100.0" \     "15Jhzz4omEXEyFKbdcccJwuVPea5LqsKM1"
 type OmniFundedSendCmd struct {
-	Fromaddress string `the address to send from`
-	Toaddress   string `the address of the receiver`
-	Propertyid  int64  `the identifier of the tokens to send`
-	Amount      string `the amount to send`
-	Feeaddress  string `the address that is used to pay for fees, if needed`
+	Fromaddress string `json:"fromaddress" desc:"the address to send from"`
+	Toaddress   string `json:"toaddress" desc:"the address of the receiver"`
+	Propertyid  int64  `json:"propertyid" desc:"the identifier of the tokens to send"`
+	Amount      string `json:"amount" desc:"the amount to send"`
+	Feeaddress  string `json:"feeaddress" desc:"the address that is used to pay for fees, if needed"`
 }
 
 func NewOmniFundedSendCmd(fromaddress string, toaddress string, propertyid int64, amount string, feeaddress string) *OmniFundedSendCmd {
@@ -452,10 +452,10 @@ func NewOmniFundedSendCmd(fromaddress string, toaddress string, propertyid int64
 // All bitcoins from the sender are consumed and if there are bitcoins missing, they are taken from the specified fee source. Change is sent to the fee source!
 // example: $ omnicore-cli "omni_funded_sendall" "1DFa5bT6KMEr6ta29QJouainsjaNBsJQhH" \     "15cWrfuvMxyxGst2FisrQcvcpF48x6sXoH" 1 "15Jhzz4omEXEyFKbdcccJwuVPea5LqsKM1"
 type OmniFundedSendallCmd struct {
-	Fromaddress string `the address to send from`
-	Toaddress   string `the address of the receiver`
-	Ecosystem   int64  `the ecosystem of the tokens to send (1 for main ecosystem, 2 for test ecosystem)`
-	Feeaddress  string `the address that is used to pay for fees, if needed`
+	Fromaddress string `json:"fromaddress" desc:"the address to send from"`
+	Toaddress   string `json:"toaddress" desc:"the address of the receiver"`
+	Ecosystem   int64  `json:"ecosystem" desc:"the ecosystem of the tokens to send (1 for main ecosystem, 2 for test ecosystem)"`
+	Feeaddress  string `json:"feeaddress" desc:"the address that is used to pay for fees, if needed"`
 }
 
 func NewOmniFundedSendallCmd(fromaddress string, toaddress string, ecosystem int64, feeaddress string) *OmniFundedSendallCmd {
@@ -479,8 +479,8 @@ func NewOmniGetinfoCmd() *OmniGetinfoCmd {
 // OmniGetbalance // Returns the token balance for a given address and property.
 // example: $ omnicore-cli "omni_getbalance", "1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P" 1
 type OmniGetbalanceCmd struct {
-	Address    string `the address`
-	Propertyid int64  `the property identifier`
+	Address    string `json:"address" desc:"the address"`
+	Propertyid int64  `json:"propertyid" desc:"the property identifier"`
 }
 
 func NewOmniGetbalanceCmd(address string, propertyid int64) *OmniGetbalanceCmd {
@@ -538,11 +538,11 @@ func NewOmniGettransactionCmd() *OmniGettransactionCmd {
 // OmniListtransactions // List wallet transactions, optionally filtered by an address and block boundaries.
 // example: $ omnicore-cli "omni_listtransactions"
 type OmniListtransactionsCmd struct {
-	Txid       *string `address filter (default: "*")`
-	Count      *int64  `show at most n transactions (default: 10)`
-	Skip       *int64  `skip the first n transactions (default: 0)`
-	Startblock *int64  `first block to begin the search (default: 0)`
-	Endblock   *int64  `last block to include in the search (default: 999999999)`
+	Txid       *string `json:"txid" desc:"address filter (default: "*")"`
+	Count      *int64  `json:"count" desc:"show at most n transactions (default: 10)"`
+	Skip       *int64  `json:"skip" desc:"skip the first n transactions (default: 0)"`
+	Startblock *int64  `json:"startblock" desc:"first block to begin the search (default: 0)"`
+	Endblock   *int64  `json:"endblock" desc:"last block to include in the search (default: 999999999)"`
 }
 
 func NewOmniListtransactionsCmd(txid *string, count *int64, skip *int64, startblock *int64, endblock *int64) *OmniListtransactionsCmd {
@@ -613,8 +613,8 @@ func NewOmniGetactivecrowdsalesCmd() *OmniGetactivecrowdsalesCmd {
 // OmniGetcrowdsale // Returns information about a crowdsale.
 // example: $ omnicore-cli "omni_getcrowdsale" 3 true
 type OmniGetcrowdsaleCmd struct {
-	Propertyid int64 `the identifier of the crowdsale`
-	Verbose    *bool `list crowdsale participants (default: false)`
+	Propertyid int64 `json:"propertyid" desc:"the identifier of the crowdsale"`
+	Verbose    *bool `json:"verbose" desc:"list crowdsale participants (default: false)"`
 }
 
 func NewOmniGetcrowdsaleCmd(propertyid int64, verbose *bool) *OmniGetcrowdsaleCmd {
@@ -636,8 +636,8 @@ func NewOmniGetgrantsCmd() *OmniGetgrantsCmd {
 // OmniGetsto // Get information and recipients of a send-to-owners transaction.
 // example: $ omnicore-cli "omni_getsto" "1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d" "*"
 type OmniGetstoCmd struct {
-	Txid            string  `the hash of the transaction to lookup`
-	Recipientfilter *string `a filter for recipients (wallet by default, "*" for all)`
+	Txid            string  `json:"txid" desc:"the hash of the transaction to lookup"`
+	Recipientfilter *string `json:"recipientfilter" desc:"a filter for recipients (wallet by default, "*" for all)"`
 }
 
 func NewOmniGetstoCmd(txid string, recipientfilter *string) *OmniGetstoCmd {
@@ -659,8 +659,8 @@ func NewOmniGettradeCmd() *OmniGettradeCmd {
 // OmniGetorderbook // List active offers on the distributed token exchange.
 // example: $ omnicore-cli "omni_getorderbook" 2
 type OmniGetorderbookCmd struct {
-	SalePropertyid    int64  `filter orders by propertyid for sale`
-	Desiredpropertyid *int64 `filter orders by propertyid desired`
+	SalePropertyid    int64  `json:"salePropertyid" desc:"filter orders by propertyid for sale"`
+	Desiredpropertyid *int64 `json:"desiredpropertyid" desc:"filter orders by propertyid desired"`
 }
 
 func NewOmniGetorderbookCmd(salePropertyid int64, desiredpropertyid *int64) *OmniGetorderbookCmd {
@@ -673,9 +673,9 @@ func NewOmniGetorderbookCmd(salePropertyid int64, desiredpropertyid *int64) *Omn
 // OmniGettradehistoryforpair // Retrieves the history of trades on the distributed token exchange for the specified market.
 // example: $ omnicore-cli "omni_gettradehistoryforpair" 1 12 500
 type OmniGettradehistoryforpairCmd struct {
-	FirstPropertyid  int64  `the first side of the traded pair`
-	SecondPropertyid int64  `the second side of the traded pair`
-	Count            *int64 `number of trades to retrieve (default: 10)`
+	FirstPropertyid  int64  `json:"firstPropertyid" desc:"the first side of the traded pair"`
+	SecondPropertyid int64  `json:"secondPropertyid" desc:"the second side of the traded pair"`
+	Count            *int64 `json:"count" desc:"number of trades to retrieve (default: 10)"`
 }
 
 func NewOmniGettradehistoryforpairCmd(firstPropertyid int64, secondPropertyid int64, count *int64) *OmniGettradehistoryforpairCmd {
@@ -689,9 +689,9 @@ func NewOmniGettradehistoryforpairCmd(firstPropertyid int64, secondPropertyid in
 // OmniGettradehistoryforaddress // Retrieves the history of orders on the distributed exchange for the supplied address.
 // example: $ omnicore-cli "omni_gettradehistoryforaddress" "1MCHESTptvd2LnNp7wmr2sGTpRomteAkq8"
 type OmniGettradehistoryforaddressCmd struct {
-	Address    string `address to retrieve history for`
-	Count      *int64 `number of orders to retrieve (default: 10)`
-	Propertyid *int64 `filter by propertyid transacted (default: no filter)`
+	Address    string `json:"address" desc:"address to retrieve history for"`
+	Count      *int64 `json:"count" desc:"number of orders to retrieve (default: 10)"`
+	Propertyid *int64 `json:"propertyid" desc:"filter by propertyid transacted (default: no filter)"`
 }
 
 func NewOmniGettradehistoryforaddressCmd(address string, count *int64, propertyid *int64) *OmniGettradehistoryforaddressCmd {
@@ -724,8 +724,8 @@ func NewOmniGetpayloadCmd() *OmniGetpayloadCmd {
 // WARNING: The Exodus crowdsale is not stored in LevelDB, thus this is currently only safe to use to generate seed blocks after block 255365.
 // example: $ omnicore-cli "omni_getseedblocks" 290000 300000
 type OmniGetseedblocksCmd struct {
-	Startblock int64 `the first block to look for Omni transactions (inclusive)`
-	Endblock   int64 `the last block to look for Omni transactions (inclusive)`
+	Startblock int64 `json:"startblock" desc:"the first block to look for Omni transactions (inclusive)"`
+	Endblock   int64 `json:"endblock" desc:"the last block to look for Omni transactions (inclusive)"`
 }
 
 func NewOmniGetseedblocksCmd(startblock int64, endblock int64) *OmniGetseedblocksCmd {
@@ -749,9 +749,9 @@ func NewOmniGetcurrentconsensushashCmd() *OmniGetcurrentconsensushashCmd {
 // A block height can be provided, which is used to determine the parsing rules.
 // example: $ omnicore-cli "omni_decodetransaction" "010000000163af14ce6d477e1c793507e32a5b7696288fa89705c0d02a3f66beb3c \     5b8afee0100000000ffffffff02ac020000000000004751210261ea979f6a06f9dafe00fb1263ea0aca959875a7073556a088cdf \     adcd494b3752102a3fd0a8a067e06941e066f78d930bfc47746f097fcd3f7ab27db8ddf37168b6b52ae22020000000000001976a \     914946cb2e08075bcbaf157e47bcb67eb2b2339d24288ac00000000" \     "[{\"txid\":\"eeafb8c5b3be663f2ad0c00597a88f2896765b2ae30735791c7e476dce14af63\",\"vout\":1, \     \"scriptPubKey\":\"76a9149084c0bd89289bc025d0264f7f23148fb683d56c88ac\",\"value\":0.0001123}]"
 type OmniDecodetransactionCmd struct {
-	Rawtx   string  `the raw transaction to decode`
-	Prevtxs *string `a JSON array of transaction inputs (default: none)`
-	Height  *int64  `the parsing block height (default: 0 for chain height)`
+	Rawtx   string  `json:"rawtx" desc:"the raw transaction to decode"`
+	Prevtxs *string `json:"prevtxs" desc:"a JSON array of transaction inputs (default: none)"`
+	Height  *int64  `json:"height" desc:"the parsing block height (default: 0 for chain height)"`
 }
 
 func NewOmniDecodetransactionCmd(rawtx string, prevtxs *string, height *int64) *OmniDecodetransactionCmd {
@@ -767,8 +767,8 @@ func NewOmniDecodetransactionCmd(rawtx string, prevtxs *string, height *int64) *
 // If the data encoding fails, then the transaction is not modified.
 // example: $ omnicore-cli "omni_createrawtx_opreturn" "01000000000000000000" "00000000000000020000000006dac2c0"
 type OmniCreaterawtxOpreturnCmd struct {
-	Rawtx   string `the raw transaction to extend (can be null)`
-	Payload string `the hex-encoded payload to add`
+	Rawtx   string `json:"rawtx" desc:"the raw transaction to extend (can be null)"`
+	Payload string `json:"payload" desc:"the hex-encoded payload to add"`
 }
 
 func NewOmniCreaterawtxOpreturnCmd(rawtx string, payload string) *OmniCreaterawtxOpreturnCmd {
@@ -783,10 +783,10 @@ func NewOmniCreaterawtxOpreturnCmd(rawtx string, payload string) *OmniCreaterawt
 // If the data encoding fails, then the transaction is not modified.
 // example: $ omnicore-cli "omni_createrawtx_multisig" \     "0100000001a7a9402ecd77f3c9f745793c9ec805bfa2e14b89877581c734c774864247e6f50400000000ffffffff01aa0a00000 \     00000001976a9146d18edfe073d53f84dd491dae1379f8fb0dfe5d488ac00000000" \     "00000000000000020000000000989680"     "1LifmeXYHeUe2qdKWBGVwfbUCMMrwYtoMm" \     "0252ce4bdd3ce38b4ebbc5a6e1343608230da508ff12d23d85b58c964204c4cef3"
 type OmniCreaterawtxMultisigCmd struct {
-	Rawtx             string `the raw transaction to extend (can be null)`
-	AddPayload        string `the hex-encoded payload to add`
-	Seed              string `the seed for obfuscation`
-	RedemptionPayload string `a public key or address for dust redemption`
+	Rawtx             string `json:"rawtx" desc:"the raw transaction to extend (can be null)"`
+	AddPayload        string `json:"addPayload" desc:"the hex-encoded payload to add"`
+	Seed              string `json:"seed" desc:"the seed for obfuscation"`
+	RedemptionPayload string `json:"redemptionPayload" desc:"a public key or address for dust redemption"`
 }
 
 func NewOmniCreaterawtxMultisigCmd(rawtx string, addPayload string, seed string, redemptionPayload string) *OmniCreaterawtxMultisigCmd {
@@ -802,9 +802,9 @@ func NewOmniCreaterawtxMultisigCmd(rawtx string, addPayload string, seed string,
 // If no raw transaction is provided, a new transaction is created.
 // example: $ omnicore-cli "omni_createrawtx_input" \     "01000000000000000000" "b006729017df05eda586df9ad3f8ccfee5be340aadf88155b784d1fc0e8342ee" 0
 type OmniCreaterawtxInputCmd struct {
-	Rawtx string `the raw transaction to extend (can be null)`
-	Txid  string `the hash of the input transaction`
-	N     int64  `the index of the transaction output used as input`
+	Rawtx string `json:"rawtx" desc:"the raw transaction to extend (can be null)"`
+	Txid  string `json:"txid" desc:"the hash of the input transaction"`
+	N     int64  `json:"n" desc:"the index of the transaction output used as input"`
 }
 
 func NewOmniCreaterawtxInputCmd(rawtx string, txid string, n int64) *OmniCreaterawtxInputCmd {
@@ -820,9 +820,9 @@ func NewOmniCreaterawtxInputCmd(rawtx string, txid string, n int64) *OmniCreater
 // The output value is set to at least the dust threshold.
 // example: $ omnicore-cli "omni_createrawtx_reference" \     "0100000001a7a9402ecd77f3c9f745793c9ec805bfa2e14b89877581c734c774864247e6f50400000000ffffffff03aa0a00000     00000001976a9146d18edfe073d53f84dd491dae1379f8fb0dfe5d488ac5c0d0000000000004751210252ce4bdd3ce38b4ebbc5a     6e1343608230da508ff12d23d85b58c964204c4cef3210294cc195fc096f87d0f813a337ae7e5f961b1c8a18f1f8604a909b3a51     21f065b52aeaa0a0000000000001976a914946cb2e08075bcbaf157e47bcb67eb2b2339d24288ac00000000" \     "1CE8bBr1dYZRMnpmyYsFEoexa1YoPz2mfB" \     0.005
 type OmniCreaterawtxReferenceCmd struct {
-	Rawtx       string `the raw transaction to extend (can be null)`
-	Destination string `the reference address or destination`
-	Amount      *int64 `the optional reference amount (minimal by default)`
+	Rawtx       string `json:"rawtx" desc:"the raw transaction to extend (can be null)"`
+	Destination string `json:"destination" desc:"the reference address or destination"`
+	Amount      *int64 `json:"amount" desc:"the optional reference amount (minimal by default)"`
 }
 
 func NewOmniCreaterawtxReferenceCmd(rawtx string, destination string, amount *int64) *OmniCreaterawtxReferenceCmd {
@@ -839,11 +839,11 @@ func NewOmniCreaterawtxReferenceCmd(rawtx string, destination string, amount *in
 // If the change amount would be considered as dust, then no change output is added.
 // example: $ omnicore-cli "omni_createrawtx_change" \     "0100000001b15ee60431ef57ec682790dec5a3c0d83a0c360633ea8308fbf6d5fc10a779670400000000ffffffff025c0d00000 \     000000047512102f3e471222bb57a7d416c82bf81c627bfcd2bdc47f36e763ae69935bba4601ece21021580b888ff56feb27f17f \     08802ebed26258c23697d6a462d43fc13b565fda2dd52aeaa0a0000000000001976a914946cb2e08075bcbaf157e47bcb67eb2b2 \     339d24288ac00000000" \     "[{\"txid\":\"6779a710fcd5f6fb0883ea3306360c3ad8c0a3c5de902768ec57ef3104e65eb1\",\"vout\":4, \     \"scriptPubKey\":\"76a9147b25205fd98d462880a3e5b0541235831ae959e588ac\",\"value\":0.00068257}]" \     "1CE8bBr1dYZRMnpmyYsFEoexa1YoPz2mfB" 0.000035 1
 type OmniCreaterawtxChangeCmd struct {
-	Rawtx       string `the raw transaction to extend`
-	Prevtxs     string `a JSON array of transaction inputs`
-	Destination string `the destination for the change`
-	Fee         int64  `the desired transaction fees`
-	Position    *int64 `the position of the change output (default: first position)`
+	Rawtx       string `json:"rawtx" desc:"the raw transaction to extend"`
+	Prevtxs     string `json:"prevtxs" desc:"a JSON array of transaction inputs"`
+	Destination string `json:"destination" desc:"the destination for the change"`
+	Fee         int64  `json:"fee" desc:"the desired transaction fees"`
+	Position    *int64 `json:"position" desc:"the position of the change output (default: first position)"`
 }
 
 func NewOmniCreaterawtxChangeCmd(rawtx string, prevtxs string, destination string, fee int64, position *int64) *OmniCreaterawtxChangeCmd {
@@ -860,8 +860,8 @@ func NewOmniCreaterawtxChangeCmd(rawtx string, prevtxs string, destination strin
 // Note: if the server is not synchronized, amounts are considered as divisible, even if the token may have indivisible units!
 // example: $ omnicore-cli "omni_createpayload_simplesend" 1 "100.0"
 type OmniCreatepayloadSimplesendCmd struct {
-	Propertyid int64  `the identifier of the tokens to send`
-	Amount     string `the amount to send`
+	Propertyid int64  `json:"propertyid" desc:"the identifier of the tokens to send"`
+	Amount     string `json:"amount" desc:"the amount to send"`
 }
 
 func NewOmniCreatepayloadSimplesendCmd(propertyid int64, amount string) *OmniCreatepayloadSimplesendCmd {
@@ -883,12 +883,12 @@ func NewOmniCreatepayloadSendallCmd() *OmniCreatepayloadSendallCmd {
 // OmniCreatepayloadDexsell // Create a payload to place, update or cancel a sell offer on the traditional distributed OMNI/BTC exchange.
 // example: $ omnicore-cli "omni_createpayload_dexsell" 1 "1.5" "0.75" 25 "0.0005" 1
 type OmniCreatepayloadDexsellCmd struct {
-	Propertyidforsale int64  `the identifier of the tokens to list for sale (must be 1 for OMNI or 2 for TOMNI)`
-	Amountforsale     string `the amount of tokens to list for sale`
-	Amountdesired     string `the amount of bitcoins desired`
-	Paymentwindow     int64  `a time limit in blocks a buyer has to pay following a successful accepting order`
-	Minacceptfee      string `a minimum mining fee a buyer has to pay to accept the offer`
-	Action            int64  `the action to take (1 for new offers, 2 to update\", 3 to cancel)`
+	Propertyidforsale int64  `json:"propertyidforsale" desc:"the identifier of the tokens to list for sale (must be 1 for OMNI or 2 for TOMNI)"`
+	Amountforsale     string `json:"amountforsale" desc:"the amount of tokens to list for sale"`
+	Amountdesired     string `json:"amountdesired" desc:"the amount of bitcoins desired"`
+	Paymentwindow     int64  `json:"paymentwindow" desc:"a time limit in blocks a buyer has to pay following a successful accepting order"`
+	Minacceptfee      string `json:"minacceptfee" desc:"a minimum mining fee a buyer has to pay to accept the offer"`
+	Action            int64  `json:"action" desc:"the action to take (1 for new offers, 2 to update\", 3 to cancel)"`
 }
 
 func NewOmniCreatepayloadDexsellCmd(propertyidforsale int64, amountforsale string, amountdesired string, paymentwindow int64, minacceptfee string, action int64) *OmniCreatepayloadDexsellCmd {
@@ -906,8 +906,8 @@ func NewOmniCreatepayloadDexsellCmd(propertyidforsale int64, amountforsale strin
 // Note: if the server is not synchronized, amounts are considered as divisible, even if the token may have indivisible units!
 // example: $ omnicore-cli "omni_createpayload_dexaccept" 1 "15.0"
 type OmniCreatepayloadDexacceptCmd struct {
-	Propertyid int64  `the identifier of the token to purchase`
-	Amount     string `the amount to accept`
+	Propertyid int64  `json:"propertyid" desc:"the identifier of the token to purchase"`
+	Amount     string `json:"amount" desc:"the amount to accept"`
 }
 
 func NewOmniCreatepayloadDexacceptCmd(propertyid int64, amount string) *OmniCreatepayloadDexacceptCmd {
@@ -921,9 +921,9 @@ func NewOmniCreatepayloadDexacceptCmd(propertyid int64, amount string) *OmniCrea
 // Note: if the server is not synchronized, amounts are considered as divisible, even if the token may have indivisible units!
 // example: $ omnicore-cli "omni_createpayload_sto" 3 "5000"
 type OmniCreatepayloadStoCmd struct {
-	Propertyid           int64  `the identifier of the token to distribute`
-	Amount               string `the amount to distribute`
-	Distributionproperty *int64 `the identifier of the property holders to distribute to`
+	Propertyid           int64  `json:"propertyid" desc:"the identifier of the token to distribute"`
+	Amount               string `json:"amount" desc:"the amount to distribute"`
+	Distributionproperty *int64 `json:"distributionproperty" desc:"the identifier of the property holders to distribute to"`
 }
 
 func NewOmniCreatepayloadStoCmd(propertyid int64, amount string, distributionproperty *int64) *OmniCreatepayloadStoCmd {
@@ -937,15 +937,15 @@ func NewOmniCreatepayloadStoCmd(propertyid int64, amount string, distributionpro
 // OmniCreatepayloadIssuancefixed // Creates the payload for a new tokens issuance with fixed supply.
 // example: $ omnicore-cli "omni_createpayload_issuancefixed" 2 1 0 "Companies" "Bitcoin Mining" "Quantum Miner" "" "" "1000000"
 type OmniCreatepayloadIssuancefixedCmd struct {
-	Ecosystem   int64  `the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)`
-	Typo        int64  `the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)`
-	Previousid  int64  `an identifier of a predecessor token (use 0 for new tokens)`
-	Category    string `a category for the new tokens (can be "")`
-	Subcategory string `a subcategory for the new tokens (can be "")`
-	Name        string `the name of the new tokens to create`
-	Url         string `an URL for further information about the new tokens (can be "")`
-	Data        string `a description for the new tokens (can be "")`
-	Amount      string `the number of tokens to create`
+	Ecosystem   int64  `json:"ecosystem" desc:"the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)"`
+	Typo        int64  `json:"type" desc:"the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)"`
+	Previousid  int64  `json:"previousid" desc:"an identifier of a predecessor token (use 0 for new tokens)"`
+	Category    string `json:"category" desc:"a category for the new tokens (can be "")"`
+	Subcategory string `json:"subcategory" desc:"a subcategory for the new tokens (can be "")"`
+	Name        string `json:"name" desc:"the name of the new tokens to create"`
+	Url         string `json:"url" desc:"an URL for further information about the new tokens (can be "")"`
+	Data        string `json:"data" desc:"a description for the new tokens (can be "")"`
+	Amount      string `json:"amount" desc:"the number of tokens to create"`
 }
 
 func NewOmniCreatepayloadIssuancefixedCmd(ecosystem int64, typo int64, previousid int64, category string, subcategory string, name string, url string, data string, amount string) *OmniCreatepayloadIssuancefixedCmd {
@@ -965,19 +965,19 @@ func NewOmniCreatepayloadIssuancefixedCmd(ecosystem int64, typo int64, previousi
 // OmniCreatepayloadIssuancecrowdsale // Creates the payload for a new tokens issuance with crowdsale.
 // example: $ omnicore-cli "omni_createpayload_issuancecrowdsale" 2 1 0 "Companies" "Bitcoin Mining" "Quantum Miner" "" "" 2 "100" 1483228800 30 2
 type OmniCreatepayloadIssuancecrowdsaleCmd struct {
-	Ecosystem         int64  `the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)`
-	Typo              int64  `the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)`
-	Previousid        int64  `an identifier of a predecessor token (use 0 for new tokens)`
-	Category          string `a category for the new tokens (can be "")`
-	Subcategory       string `a subcategory for the new tokens (can be "")`
-	Name              string `the name of the new tokens to create`
-	Url               string `an URL for further information about the new tokens (can be "")`
-	Data              string `a description for the new tokens (can be "")`
-	Propertyiddesired int64  `the identifier of a token eligible to participate in the crowdsale`
-	Tokensperunit     string `the amount of tokens granted per unit invested in the crowdsale`
-	Deadline          int64  `the deadline of the crowdsale as Unix timestamp`
-	Earlybonus        int64  `an early bird bonus for participants in percent per week`
-	Issuerpercentage  int64  `a percentage of tokens that will be granted to the issuer`
+	Ecosystem         int64  `json:"ecosystem" desc:"the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)"`
+	Typo              int64  `json:"type" desc:"the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)"`
+	Previousid        int64  `json:"previousid" desc:"an identifier of a predecessor token (use 0 for new tokens)"`
+	Category          string `json:"category" desc:"a category for the new tokens (can be "")"`
+	Subcategory       string `json:"subcategory" desc:"a subcategory for the new tokens (can be "")"`
+	Name              string `json:"name" desc:"the name of the new tokens to create"`
+	Url               string `json:"url" desc:"an URL for further information about the new tokens (can be "")"`
+	Data              string `json:"data" desc:"a description for the new tokens (can be "")"`
+	Propertyiddesired int64  `json:"propertyiddesired" desc:"the identifier of a token eligible to participate in the crowdsale"`
+	Tokensperunit     string `json:"tokensperunit" desc:"the amount of tokens granted per unit invested in the crowdsale"`
+	Deadline          int64  `json:"deadline" desc:"the deadline of the crowdsale as Unix timestamp"`
+	Earlybonus        int64  `json:"earlybonus" desc:"an early bird bonus for participants in percent per week"`
+	Issuerpercentage  int64  `json:"issuerpercentage" desc:"a percentage of tokens that will be granted to the issuer"`
 }
 
 func NewOmniCreatepayloadIssuancecrowdsaleCmd(ecosystem int64, typo int64, previousid int64, category string, subcategory string, name string, url string, data string, propertyiddesired int64, tokensperunit string, deadline int64, earlybonus int64, issuerpercentage int64) *OmniCreatepayloadIssuancecrowdsaleCmd {
@@ -1001,14 +1001,14 @@ func NewOmniCreatepayloadIssuancecrowdsaleCmd(ecosystem int64, typo int64, previ
 // OmniCreatepayloadIssuancemanaged // Creates the payload for a new tokens issuance with manageable supply.
 // example: $ omnicore-cli "omni_createpayload_issuancemanaged" 2 1 0 "Companies" "Bitcoin Mining" "Quantum Miner" "" ""
 type OmniCreatepayloadIssuancemanagedCmd struct {
-	Ecosystem   int64  `the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)`
-	Typo        int64  `the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)`
-	Previousid  int64  `an identifier of a predecessor token (use 0 for new tokens)`
-	Category    string `a category for the new tokens (can be "")`
-	Subcategory string `a subcategory for the new tokens (can be "")`
-	Name        string `the name of the new tokens to create`
-	Url         string `an URL for further information about the new tokens (can be "")`
-	Data        string `a description for the new tokens (can be "")`
+	Ecosystem   int64  `json:"ecosystem" desc:"the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)"`
+	Typo        int64  `json:"type" desc:"the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)"`
+	Previousid  int64  `json:"previousid" desc:"an identifier of a predecessor token (use 0 for new tokens)"`
+	Category    string `json:"category" desc:"a category for the new tokens (can be "")"`
+	Subcategory string `json:"subcategory" desc:"a subcategory for the new tokens (can be "")"`
+	Name        string `json:"name" desc:"the name of the new tokens to create"`
+	Url         string `json:"url" desc:"an URL for further information about the new tokens (can be "")"`
+	Data        string `json:"data" desc:"a description for the new tokens (can be "")"`
 }
 
 func NewOmniCreatepayloadIssuancemanagedCmd(ecosystem int64, typo int64, previousid int64, category string, subcategory string, name string, url string, data string) *OmniCreatepayloadIssuancemanagedCmd {
@@ -1037,9 +1037,9 @@ func NewOmniCreatepayloadClosecrowdsaleCmd() *OmniCreatepayloadClosecrowdsaleCmd
 // Note: if the server is not synchronized, amounts are considered as divisible, even if the token may have indivisible units!
 // example: $ omnicore-cli "omni_createpayload_grant" 51 "7000"
 type OmniCreatepayloadGrantCmd struct {
-	Propertyid int64   `the identifier of the tokens to grant`
-	Amount     string  `the amount of tokens to create`
-	Memo       *string `a text note attached to this transaction (none by default)`
+	Propertyid int64   `json:"propertyid" desc:"the identifier of the tokens to grant"`
+	Amount     string  `json:"amount" desc:"the amount of tokens to create"`
+	Memo       *string `json:"memo" desc:"a text note attached to this transaction (none by default)"`
 }
 
 func NewOmniCreatepayloadGrantCmd(propertyid int64, amount string, memo *string) *OmniCreatepayloadGrantCmd {
@@ -1054,9 +1054,9 @@ func NewOmniCreatepayloadGrantCmd(propertyid int64, amount string, memo *string)
 // Note: if the server is not synchronized, amounts are considered as divisible, even if the token may have indivisible units!f
 // example: $ omnicore-cli "omni_createpayload_revoke" 51 "100"
 type OmniCreatepayloadRevokeCmd struct {
-	Propertyid int64   `the identifier of the tokens to revoke`
-	Amount     string  `the amount of tokens to revoke`
-	Memo       *string `a text note attached to this transaction (none by default)`
+	Propertyid int64   `json:"propertyid" desc:"the identifier of the tokens to revoke"`
+	Amount     string  `json:"amount" desc:"the amount of tokens to revoke"`
+	Memo       *string `json:"memo" desc:"a text note attached to this transaction (none by default)"`
 }
 
 func NewOmniCreatepayloadRevokeCmd(propertyid int64, amount string, memo *string) *OmniCreatepayloadRevokeCmd {
@@ -1080,10 +1080,10 @@ func NewOmniCreatepayloadChangeissuerCmd() *OmniCreatepayloadChangeissuerCmd {
 // Note: if the server is not synchronized, amounts are considered as divisible, even if the token may have indivisible units!
 // example: $ omnicore-cli "omni_createpayload_trade" 31 "250.0" 1 "10.0"
 type OmniCreatepayloadTradeCmd struct {
-	Propertyidforsale int64  `the identifier of the tokens to list for sale`
-	Amountforsale     string `the amount of tokens to list for sale`
-	Propertyiddesired int64  `the identifier of the tokens desired in exchange`
-	Amountdesired     string `the amount of tokens desired in exchange`
+	Propertyidforsale int64  `json:"propertyidforsale" desc:"the identifier of the tokens to list for sale"`
+	Amountforsale     string `json:"amountforsale" desc:"the amount of tokens to list for sale"`
+	Propertyiddesired int64  `json:"propertyiddesired" desc:"the identifier of the tokens desired in exchange"`
+	Amountdesired     string `json:"amountdesired" desc:"the amount of tokens desired in exchange"`
 }
 
 func NewOmniCreatepayloadTradeCmd(propertyidforsale int64, amountforsale string, propertyiddesired int64, amountdesired string) *OmniCreatepayloadTradeCmd {
@@ -1099,10 +1099,10 @@ func NewOmniCreatepayloadTradeCmd(propertyidforsale int64, amountforsale string,
 // Note: if the server is not synchronized, amounts are considered as divisible, even if the token may have indivisible units!
 // example: $ omnicore-cli "omni_createpayload_canceltradesbyprice" 31 "100.0" 1 "5.0"
 type OmniCreatepayloadCanceltradesbypriceCmd struct {
-	Propertyidforsale int64  `the identifier of the tokens to list for sale`
-	Amountforsale     string `the amount of tokens to list for sale`
-	Propertyiddesired int64  `the identifier of the tokens desired in exchange`
-	Amountdesired     string `the amount of tokens desired in exchange`
+	Propertyidforsale int64  `json:"propertyidforsale" desc:"the identifier of the tokens to list for sale"`
+	Amountforsale     string `json:"amountforsale" desc:"the amount of tokens to list for sale"`
+	Propertyiddesired int64  `json:"propertyiddesired" desc:"the identifier of the tokens desired in exchange"`
+	Amountdesired     string `json:"amountdesired" desc:"the amount of tokens desired in exchange"`
 }
 
 func NewOmniCreatepayloadCanceltradesbypriceCmd(propertyidforsale int64, amountforsale string, propertyiddesired int64, amountdesired string) *OmniCreatepayloadCanceltradesbypriceCmd {
@@ -1117,8 +1117,8 @@ func NewOmniCreatepayloadCanceltradesbypriceCmd(propertyidforsale int64, amountf
 // OmniCreatepayloadCanceltradesbypair // Creates the payload to cancel all offers on the distributed token exchange with the given currency pair.
 // example: $ omnicore-cli "omni_createpayload_canceltradesbypair" 1 31
 type OmniCreatepayloadCanceltradesbypairCmd struct {
-	Propertyidforsale int64 `the identifier of the tokens to list for sale`
-	Propertyiddesired int64 `the identifier of the tokens desired in exchange`
+	Propertyidforsale int64 `json:"propertyidforsale" desc:"the identifier of the tokens to list for sale"`
+	Propertyiddesired int64 `json:"propertyiddesired" desc:"the identifier of the tokens desired in exchange"`
 }
 
 func NewOmniCreatepayloadCanceltradesbypairCmd(propertyidforsale int64, propertyiddesired int64) *OmniCreatepayloadCanceltradesbypairCmd {
@@ -1160,9 +1160,9 @@ func NewOmniCreatepayloadDisablefreezingCmd() *OmniCreatepayloadDisablefreezingC
 // Note: if the server is not synchronized, amounts are considered as divisible, even if the token may have indivisible units!
 // example: $ omnicore-cli "omni_createpayload_freeze" "3HTHRxu3aSDV4deakjC7VmsiUp7c6dfbvs" 31 "100"
 type OmniCreatepayloadFreezeCmd struct {
-	Toaddress  string `the address to freeze tokens for`
-	Propertyid int64  `the property to freeze tokens for (must be managed type and have freezing option enabled)`
-	Amount     string `the amount of tokens to freeze (note: this is unused - once frozen an address cannot send any transactions)`
+	Toaddress  string `json:"toaddress" desc:"the address to freeze tokens for"`
+	Propertyid int64  `json:"propertyid" desc:"the property to freeze tokens for (must be managed type and have freezing option enabled)"`
+	Amount     string `json:"amount" desc:"the amount of tokens to freeze (note: this is unused - once frozen an address cannot send any transactions)"`
 }
 
 func NewOmniCreatepayloadFreezeCmd(toaddress string, propertyid int64, amount string) *OmniCreatepayloadFreezeCmd {
@@ -1177,9 +1177,9 @@ func NewOmniCreatepayloadFreezeCmd(toaddress string, propertyid int64, amount st
 // Note: if the server is not synchronized, amounts are considered as divisible, even if the token may have indivisible units!
 // example: $ omnicore-cli "omni_createpayload_unfreeze" "3HTHRxu3aSDV4deakjC7VmsiUp7c6dfbvs" 31 "100"
 type OmniCreatepayloadUnfreezeCmd struct {
-	Toaddress  string `the address to unfreeze tokens for`
-	Propertyid int64  `the property to unfreeze tokens for (must be managed type and have freezing option enabled)`
-	Amount     string `the amount of tokens to unfreeze (note: this is unused)`
+	Toaddress  string `json:"toaddress" desc:"the address to unfreeze tokens for"`
+	Propertyid int64  `json:"propertyid" desc:"the property to unfreeze tokens for (must be managed type and have freezing option enabled)"`
+	Amount     string `json:"amount" desc:"the amount of tokens to unfreeze (note: this is unused)"`
 }
 
 func NewOmniCreatepayloadUnfreezeCmd(toaddress string, propertyid int64, amount string) *OmniCreatepayloadUnfreezeCmd {
@@ -1215,8 +1215,8 @@ func NewOmniGetfeetriggerCmd() *OmniGetfeetriggerCmd {
 // If an ecosystem is supplied the results will reflect the fee share for that ecosystem (main or test).  If no ecosystem is supplied the results will reflect the main ecosystem.
 // example: $ omnicore-cli "omni_getfeeshare" "1CE8bBr1dYZRMnpmyYsFEoexa1YoPz2mfB" 1
 type OmniGetfeeshareCmd struct {
-	Address   *string `the address to filter results on`
-	Ecosystem *int64  `the ecosystem to obtain the current percentage fee share (1 = main, 2 = test)`
+	Address   *string `json:"address" desc:"the address to filter results on"`
+	Ecosystem *int64  `json:"ecosystem" desc:"the ecosystem to obtain the current percentage fee share (1 = main, 2 = test)"`
 }
 
 func NewOmniGetfeeshareCmd(address *string, ecosystem *int64) *OmniGetfeeshareCmd {
