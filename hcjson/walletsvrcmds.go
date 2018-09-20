@@ -630,6 +630,44 @@ func NewOmniDealOpretrunCmd(payload string) *OmniDealOpretrunCmd {
 	}
 }
 
+// OmniGetBalanceCmd defines the walletpassphrase JSON-RPC command.
+type OmniGetBalanceCmd struct {
+	Address    string //(string, required) the address\n"
+	Propertyid uint32    //(number, required) the property identifier\n"
+}
+
+// NewOmniGetBalanceCmd returns a new instance which can be used to
+// issue a OmniGetBalanceCmd JSON-RPC command.
+func NewOmniGetBalanceCmd(address string, propertyid uint32 ) *OmniGetBalanceCmd {
+	return &OmniGetBalanceCmd{
+		Address:  address,
+		Propertyid:propertyid,
+	}
+}
+
+// OmniGetBalanceCmd defines the walletpassphrase JSON-RPC command.
+type OmniSendCmd struct {
+	FromAddress     string //(string, required) the address to send from\n"
+	ToAddress       string //(string, required) the address of the receiver\n"
+	Propertyid      uint32 //(number, required) the identifier of the tokens to send\n"
+	Amount          string //(string, required) the amount to send\n"
+	RedeemAddress   *string //(string, optional) an address that can spend the transaction dust (sender by default)\n"
+	ReferenceAmount *string //(string, optional) a bitcoin amount that is sent to the receiver (minimal by default)\n"
+}
+
+// NewOmniGetBalanceCmd returns a new instance which can be used to
+// issue a OmniGetBalanceCmd JSON-RPC command.
+func NewOmniSendCmd(fromAddress, toAddress string, propid uint32, amount string , redAddr, refAmount *string) *OmniSendCmd {
+	return &OmniSendCmd{
+		FromAddress:     fromAddress,
+		ToAddress:       toAddress,
+		Propertyid:      propid,
+		Amount:          amount,
+		RedeemAddress:   redAddr,
+		ReferenceAmount: refAmount,
+	}
+}
+
 func init() {
 	// The commands in this file are only usable with a wallet server.
 	flags := UFWalletOnly
@@ -670,4 +708,6 @@ func init() {
 	MustRegisterCmd("walletpassphrasechange", (*WalletPassphraseChangeCmd)(nil), flags)
 	MustRegisterCmd("omni_sendissuancefixed", (*OmniSendIssuanceFixedCmd)(nil),flags)
 	MustRegisterCmd("omni_dealopreturn", (*OmniDealOpretrunCmd)(nil),flags)
+	MustRegisterCmd("omni_getbalance", (*OmniGetBalanceCmd)(nil),flags)
+	MustRegisterCmd("omni_send", (*OmniSendCmd)(nil),flags)
 }
