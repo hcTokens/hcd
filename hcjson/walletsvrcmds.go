@@ -588,6 +588,7 @@ func NewWalletPassphraseChangeCmd(oldPassphrase, newPassphrase string) *WalletPa
 
 // WalletPassphraseChangeCmd defines the walletpassphrase JSON-RPC command.
 type OmniSendIssuanceFixedCmd struct {
+	FromAddress string
 	Ecosystem   int    //(string, required) the ecosystem to create the tokens in (1 for main ecosystem, 2 for test ecosystem)\n"
 	Type        int    //(number, required) the type of the tokens to create: (1 for indivisible tokens, 2 for divisible tokens)\n"
 	Previousid  int    //(number, required) an identifier of a predecessor token (use 0 for new tokens)\n"
@@ -601,8 +602,9 @@ type OmniSendIssuanceFixedCmd struct {
 
 // NewOmniSendIssuanceFixedCmd returns a new instance which can be used to
 // issue a OmniSendIssuanceFixedCmd JSON-RPC command.
-func NewOmniSendIssuanceFixedCmd(ecosystem, ty, previousid int, category, subcategory, name, url, data, amount string) *OmniSendIssuanceFixedCmd {
+func NewOmniSendIssuanceFixedCmd(fromAddress string, ecosystem, ty, previousid int, category, subcategory, name, url, data, amount string) *OmniSendIssuanceFixedCmd {
 	return &OmniSendIssuanceFixedCmd{
+		FromAddress: fromAddress,
 		Ecosystem:   ecosystem,
 		Type:        ty,
 		Previousid:  previousid,

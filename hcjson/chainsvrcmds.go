@@ -733,6 +733,7 @@ type Omni_createpayload_simplesendCmd struct {
 	Amount   string
 }
 type Omni_createpayload_issuancefixedCmd struct {
+	FromAddress string
 	Ecosystem uint32
 	Type uint32
 	Previousid uint32
