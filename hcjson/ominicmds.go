@@ -1255,6 +1255,22 @@ func NewOmniSetautocommitCmd() *OmniSetautocommitCmd {
 	return &OmniSetautocommitCmd{}
 }
 
+type OmniProcessTxCmd struct {
+	Sender       string
+	Reference    string
+	TxHash       string
+	BlockHash    string
+	Block        uint32
+	Idx          int
+	ScriptEncode string
+	Fee          int64
+	Time         int64
+}
+
+func NewOmniProcessTxCmd() *OmniProcessTxCmd {
+	return &OmniProcessTxCmd{}
+}
+
 func init() {
 	// The commands in this file are only usable with a wallet server.
 	flags := OMiniOnly
@@ -1338,4 +1354,5 @@ func init() {
 	MustRegisterCmd("omni_getfeedistribution", (*OmniGetfeedistributionCmd)(nil), flags)
 	MustRegisterCmd("omni_getfeedistributions", (*OmniGetfeedistributionsCmd)(nil), flags)
 	MustRegisterCmd("omni_setautocommit", (*OmniSetautocommitCmd)(nil), flags)
+	MustRegisterCmd("omni_processtx", (*OmniProcessTxCmd)(nil), flags)
 }
