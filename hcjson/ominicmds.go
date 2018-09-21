@@ -1271,6 +1271,17 @@ func NewOmniProcessTxCmd() *OmniProcessTxCmd {
 	return &OmniProcessTxCmd{}
 }
 
+
+// OmniReadAllTxHashCmd
+// Sets the global flag that determines whether transactions are automatically committed and broadcasted.
+// example: $ omnicore-cli "OmniReadAllTxHashCmd" false
+type OmniReadAllTxHashCmd struct {
+}
+
+func NewOmniReadAllTxHashCmd() *OmniReadAllTxHashCmd {
+	return &OmniReadAllTxHashCmd{}
+}
+
 func init() {
 	// The commands in this file are only usable with a wallet server.
 	flags := OMiniOnly
@@ -1355,4 +1366,5 @@ func init() {
 	MustRegisterCmd("omni_getfeedistributions", (*OmniGetfeedistributionsCmd)(nil), flags)
 	MustRegisterCmd("omni_setautocommit", (*OmniSetautocommitCmd)(nil), flags)
 	MustRegisterCmd("omni_processtx", (*OmniProcessTxCmd)(nil), flags)
+        MustRegisterCmd("omni_readalltxhash", (*OmniReadAllTxHashCmd)(nil), flags)
 }
