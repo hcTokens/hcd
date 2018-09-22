@@ -1260,8 +1260,8 @@ type OmniProcessTxCmd struct {
 	Reference    string
 	TxHash       string
 	BlockHash    string
-	Block        uint32
-	Idx          int
+	Block        int64
+	Idx          int64
 	ScriptEncode string
 	Fee          int64
 	Time         int64
@@ -1270,7 +1270,6 @@ type OmniProcessTxCmd struct {
 func NewOmniProcessTxCmd() *OmniProcessTxCmd {
 	return &OmniProcessTxCmd{}
 }
-
 
 // OmniReadAllTxHashCmd
 // Sets the global flag that determines whether transactions are automatically committed and broadcasted.
@@ -1366,5 +1365,5 @@ func init() {
 	MustRegisterCmd("omni_getfeedistributions", (*OmniGetfeedistributionsCmd)(nil), flags)
 	MustRegisterCmd("omni_setautocommit", (*OmniSetautocommitCmd)(nil), flags)
 	MustRegisterCmd("omni_processtx", (*OmniProcessTxCmd)(nil), flags)
-        MustRegisterCmd("omni_readalltxhash", (*OmniReadAllTxHashCmd)(nil), flags)
+	MustRegisterCmd("omni_readalltxhash", (*OmniReadAllTxHashCmd)(nil), flags)
 }
