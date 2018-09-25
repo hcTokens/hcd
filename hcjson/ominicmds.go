@@ -595,6 +595,7 @@ func NewOmniListpropertiesCmd() *OmniListpropertiesCmd {
 // OmniGetproperty // Returns details for about the tokens or smart property to lookup.
 // example: $ omnicore-cli "omni_getproperty" 3
 type OmniGetpropertyCmd struct {
+	Propertyid int64 `json:"propertyid" desc:"the identifier of the tokens or property"`
 }
 
 func NewOmniGetpropertyCmd() *OmniGetpropertyCmd {
@@ -1070,6 +1071,7 @@ func NewOmniCreatepayloadRevokeCmd(propertyid int64, amount string, memo *string
 // OmniCreatepayloadChangeissuer // Creates the payload to change the issuer on record of the given tokens.
 // example: $ omnicore-cli "omni_createpayload_changeissuer" 3
 type OmniCreatepayloadChangeissuerCmd struct {
+	Propertyid int64   `json:"propertyid" desc:"the identifier of the tokens to revoke"`
 }
 
 func NewOmniCreatepayloadChangeissuerCmd() *OmniCreatepayloadChangeissuerCmd {
@@ -1282,10 +1284,10 @@ func NewOmniReadAllTxHashCmd() *OmniReadAllTxHashCmd {
 }
 
 type OmniPaddingAddCmd struct {
-	Sender       	string
-	Propertyid      int64
-	Amount          string
-	TxHash       	string
+	Sender     string
+	Propertyid int64
+	Amount     string
+	TxHash     string
 }
 
 func NewOmniPaddingAddCmd() *OmniPaddingAddCmd {
