@@ -1271,6 +1271,17 @@ func NewOmniProcessTxCmd() *OmniProcessTxCmd {
 	return &OmniProcessTxCmd{}
 }
 
+type OmniPaddingAddCmd struct {
+	Sender       	string
+	Propertyid      int64
+	Amount          string
+	TxHash       	string
+}
+
+func NewOmniPaddingAddCmd() *OmniPaddingAddCmd {
+	return &OmniPaddingAddCmd{}
+}
+
 func init() {
 	// The commands in this file are only usable with a wallet server.
 	flags := OMiniOnly
@@ -1355,4 +1366,5 @@ func init() {
 	MustRegisterCmd("omni_getfeedistributions", (*OmniGetfeedistributionsCmd)(nil), flags)
 	MustRegisterCmd("omni_setautocommit", (*OmniSetautocommitCmd)(nil), flags)
 	MustRegisterCmd("omni_processtx", (*OmniProcessTxCmd)(nil), flags)
+	MustRegisterCmd("omni_padding_add", (*OmniPaddingAddCmd)(nil), flags)
 }
