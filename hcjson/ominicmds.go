@@ -1294,6 +1294,20 @@ func NewOmniPaddingAddCmd() *OmniPaddingAddCmd {
 	return &OmniPaddingAddCmd{}
 }
 
+
+// OmniRoolBackCmd
+// Sets the global flag that determines whether transactions are automatically committed and broadcasted.
+// example: $ omnicore-cli "OmniRoolBackCmd" false
+type OmniRollBackCmd struct {
+	Height uint32
+}
+
+func NewOmniRoolBackCmd(height uint32) *OmniRollBackCmd {
+	return &OmniRollBackCmd{
+		Height: height,
+	}
+}
+
 func init() {
 	// The commands in this file are only usable with a wallet server.
 	flags := OMiniOnly
@@ -1380,4 +1394,5 @@ func init() {
 	MustRegisterCmd("omni_processtx", (*OmniProcessTxCmd)(nil), flags)
 	MustRegisterCmd("omni_readalltxhash", (*OmniReadAllTxHashCmd)(nil), flags)
 	MustRegisterCmd("omni_padding_add", (*OmniPaddingAddCmd)(nil), flags)
+	MustRegisterCmd("omni_rollback", (*OmniRollBackCmd)(nil), flags)
 }
