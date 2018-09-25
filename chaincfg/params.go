@@ -1,5 +1,5 @@
 // Copyright (c) 2014-2016 The btcsuite developers
-// Copyright (c) 2015-2017 The Decred developers 
+// Copyright (c) 2015-2017 The Decred developers
 // Copyright (c) 2018-2020 The Hc developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
@@ -452,7 +452,7 @@ var MainNetParams = Params{
 	Name:        "mainnet",
 	Net:         wire.MainNet,
 	DefaultPort: "14008",
-	DNSSeeds:    []string{
+	DNSSeeds: []string{
 		"mainnet1.h.cash",
 		"mainnet2.h.cash",
 		"mainnet3.h.cash",
@@ -495,8 +495,7 @@ var MainNetParams = Params{
 	RuleChangeActivationMultiplier: 3,    // 75%
 	RuleChangeActivationDivisor:    4,
 	RuleChangeActivationInterval:   2016 * 4, // 4 weeks
-	Deployments: map[uint32][]ConsensusDeployment{
-	},
+	Deployments:                    map[uint32][]ConsensusDeployment{},
 
 	// Enforce current block version once majority of the network has
 	// upgraded.
@@ -565,9 +564,9 @@ var TestNet2Params = Params{
 	Net:         wire.TestNet2,
 	DefaultPort: "12008",
 	DNSSeeds:    []string{
-		"testnet1.h.cash",
-		"testnet2.h.cash",
-		"testnet3.h.cash",
+		//	"testnet1.h.cash",
+		//	"testnet2.h.cash",
+		//	"testnet3.h.cash",
 	},
 
 	// Chain parameters
@@ -580,11 +579,11 @@ var TestNet2Params = Params{
 	GenerateSupported:        true,
 	MaximumBlockSizes:        []int{1310720},
 	MaxTxSize:                1000000,
-	TargetTimePerBlock:       time.Minute ,
+	TargetTimePerBlock:       time.Second * 30,
 	WorkDiffAlpha:            1,
 	WorkDiffWindowSize:       144,
 	WorkDiffWindows:          20,
-	TargetTimespan:           time.Minute  * 144, // TimePerBlock * WindowSize
+	TargetTimespan:           time.Second * 30 * 144, // TimePerBlock * WindowSize
 	RetargetAdjustmentFactor: 4,
 
 	// Subsidy parameters.
@@ -638,7 +637,6 @@ var TestNet2Params = Params{
 		}},
 	},
 
-
 	// Enforce current block version once majority of the network has
 	// upgraded.
 	// 51% (51 / 100)
@@ -686,7 +684,7 @@ var TestNet2Params = Params{
 	StakeVersionInterval:    144 * 2 * 7, // ~1 week
 	MaxFreshStakePerBlock:   20,          // 4*TicketsPerBlock
 	StakeEnabledHeight:      16 + 16,     // CoinbaseMaturity + TicketMaturity
-	StakeValidationHeight:   10775,         // Arbitrary
+	StakeValidationHeight:   10775,       // Arbitrary
 	StakeBaseSigScript:      []byte{0x00, 0x00},
 	StakeMajorityMultiplier: 3,
 	StakeMajorityDivisor:    4,
