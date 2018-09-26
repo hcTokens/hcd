@@ -1306,11 +1306,13 @@ func NewOmniPaddingAddCmd() *OmniPaddingAddCmd {
 // example: $ omnicore-cli "OmniRoolBackCmd" false
 type OmniRollBackCmd struct {
 	Height uint32
+	Hashs  *[]string
 }
 
-func NewOmniRoolBackCmd(height uint32) *OmniRollBackCmd {
+func NewOmniRollBackCmd(height uint32, hashs  *[]string) *OmniRollBackCmd {
 	return &OmniRollBackCmd{
 		Height: height,
+		Hashs : hashs,
 	}
 }
 
