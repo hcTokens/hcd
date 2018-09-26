@@ -1288,6 +1288,7 @@ type OmniPaddingAddCmd struct {
 	Propertyid int64
 	Amount     string
 	TxHash     string
+	MscType		int
 }
 
 func NewOmniPaddingAddCmd() *OmniPaddingAddCmd {
