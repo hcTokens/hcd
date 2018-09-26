@@ -628,6 +628,7 @@ func NewOmniGetcrowdsaleCmd(propertyid int64, verbose *bool) *OmniGetcrowdsaleCm
 // OmniGetgrants // Returns information about granted and revoked units of managed tokens.
 // example: $ omnicore-cli "omni_getgrants" 31
 type OmniGetgrantsCmd struct {
+	PropertyId	string
 }
 
 func NewOmniGetgrantsCmd() *OmniGetgrantsCmd {
