@@ -53,7 +53,7 @@ type OmniSenddexacceptCmd struct {
 	Toaddress   string `json:"toaddress" desc:"the address of the seller"`
 	Propertyid  int64  `json:"propertyid" desc:"the identifier of the token to purchase"`
 	Amount      string `json:"amount" desc:"the amount to accept"`
-	Override    bool   `json:"override" desc:"override minimum accept fee and payment window checks (use with caution!)"`
+	Override    *bool   `json:"override" desc:"override minimum accept fee and payment window checks (use with caution!)"`
 }
 
 func NewOmniSenddexacceptCmd(fromaddress string, toaddress string, propertyid int64, amount string, override bool) *OmniSenddexacceptCmd {
@@ -62,7 +62,7 @@ func NewOmniSenddexacceptCmd(fromaddress string, toaddress string, propertyid in
 		Toaddress:   toaddress,
 		Propertyid:  propertyid,
 		Amount:      amount,
-		Override:    override,
+		Override:    &override,
 	}
 }
 
