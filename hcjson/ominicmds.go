@@ -628,7 +628,7 @@ func NewOmniGetcrowdsaleCmd(propertyid int64, verbose *bool) *OmniGetcrowdsaleCm
 // OmniGetgrants // Returns information about granted and revoked units of managed tokens.
 // example: $ omnicore-cli "omni_getgrants" 31
 type OmniGetgrantsCmd struct {
-	PropertyId	string
+	PropertyId	int64
 }
 
 func NewOmniGetgrantsCmd() *OmniGetgrantsCmd {
@@ -1197,6 +1197,7 @@ func NewOmniCreatepayloadUnfreezeCmd(toaddress string, propertyid int64, amount 
 // If a property ID is supplied the results will be filtered to show this property ID only.  If no property ID is supplied the results will contain all properties that currently have fees cached pending distribution.
 // example: $ omnicore-cli "omni_getfeecache" 31
 type OmniGetfeecacheCmd struct {
+	PropertyId int64
 }
 
 func NewOmniGetfeecacheCmd() *OmniGetfeecacheCmd {
@@ -1233,6 +1234,7 @@ func NewOmniGetfeeshareCmd(address *string, ecosystem *int64) *OmniGetfeeshareCm
 // A distribution ID must be supplied to identify the distribution to obtain data for.
 // example: $ omnicore-cli "omni_getfeedistribution" 1
 type OmniGetfeedistributionCmd struct {
+	Distributionid	int64
 }
 
 func NewOmniGetfeedistributionCmd() *OmniGetfeedistributionCmd {
@@ -1243,6 +1245,7 @@ func NewOmniGetfeedistributionCmd() *OmniGetfeedistributionCmd {
 // A property ID must be supplied to retrieve past distributions for.
 // example: $ omnicore-cli "omni_getfeedistributions" 31
 type OmniGetfeedistributionsCmd struct {
+	PropertyId int64
 }
 
 func NewOmniGetfeedistributionsCmd() *OmniGetfeedistributionsCmd {
