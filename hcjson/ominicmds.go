@@ -651,6 +651,7 @@ func NewOmniGetstoCmd(txid string, recipientfilter *string) *OmniGetstoCmd {
 // OmniGettrade // Get detailed information and trade matches for orders on the distributed token exchange.
 // example: $ omnicore-cli "omni_gettrade" "1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"
 type OmniGettradeCmd struct {
+	Txid string  `json:"txid" desc:"the hash of the order to lookup"`
 }
 
 func NewOmniGettradeCmd() *OmniGettradeCmd {
