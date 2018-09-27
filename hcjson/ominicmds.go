@@ -1035,6 +1035,8 @@ func NewOmniCreatepayloadIssuancemanagedCmd(ecosystem int64, typo int64, previou
 // OmniCreatepayloadClosecrowdsale // Creates the payload to manually close a crowdsale.
 // example: $ omnicore-cli "omni_createpayload_closecrowdsale" 70
 type OmniCreatepayloadClosecrowdsaleCmd struct {
+	Propertyid uint32 `json:"previousid" desc:"the identifier of the crowdsale to close"`
+
 }
 
 func NewOmniCreatepayloadClosecrowdsaleCmd() *OmniCreatepayloadClosecrowdsaleCmd {
@@ -1140,6 +1142,7 @@ func NewOmniCreatepayloadCanceltradesbypairCmd(propertyidforsale int64, property
 // OmniCreatepayloadCancelalltrades // Creates the payload to cancel all offers on the distributed token exchange with the given currency pair.
 // example: $ omnicore-cli "omni_createpayload_cancelalltrades" 1
 type OmniCreatepayloadCancelalltradesCmd struct {
+	Ecosystem uint32 `json:"ecosystem" desc:"the ecosystem of the offers to cancel (1 for main ecosystem, 2 for test ecosystem)"`
 }
 
 func NewOmniCreatepayloadCancelalltradesCmd() *OmniCreatepayloadCancelalltradesCmd {
