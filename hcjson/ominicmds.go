@@ -632,6 +632,7 @@ func NewOmniGetcrowdsaleCmd(propertyid int64, verbose *bool) *OmniGetcrowdsaleCm
 // OmniGetgrants // Returns information about granted and revoked units of managed tokens.
 // example: $ omnicore-cli "omni_getgrants" 31
 type OmniGetgrantsCmd struct {
+	PropertyId	int64
 }
 
 func NewOmniGetgrantsCmd() *OmniGetgrantsCmd {
@@ -655,6 +656,7 @@ func NewOmniGetstoCmd(txid string, recipientfilter *string) *OmniGetstoCmd {
 // OmniGettrade // Get detailed information and trade matches for orders on the distributed token exchange.
 // example: $ omnicore-cli "omni_gettrade" "1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"
 type OmniGettradeCmd struct {
+	Txid string  `json:"txid" desc:"the hash of the order to lookup"`
 }
 
 func NewOmniGettradeCmd() *OmniGettradeCmd {
@@ -1202,6 +1204,7 @@ func NewOmniCreatepayloadUnfreezeCmd(toaddress string, propertyid int64, amount 
 // If a property ID is supplied the results will be filtered to show this property ID only.  If no property ID is supplied the results will contain all properties that currently have fees cached pending distribution.
 // example: $ omnicore-cli "omni_getfeecache" 31
 type OmniGetfeecacheCmd struct {
+	PropertyId int64
 }
 
 func NewOmniGetfeecacheCmd() *OmniGetfeecacheCmd {
@@ -1238,6 +1241,7 @@ func NewOmniGetfeeshareCmd(address *string, ecosystem *int64) *OmniGetfeeshareCm
 // A distribution ID must be supplied to identify the distribution to obtain data for.
 // example: $ omnicore-cli "omni_getfeedistribution" 1
 type OmniGetfeedistributionCmd struct {
+	Distributionid	int64
 }
 
 func NewOmniGetfeedistributionCmd() *OmniGetfeedistributionCmd {
@@ -1248,6 +1252,7 @@ func NewOmniGetfeedistributionCmd() *OmniGetfeedistributionCmd {
 // A property ID must be supplied to retrieve past distributions for.
 // example: $ omnicore-cli "omni_getfeedistributions" 31
 type OmniGetfeedistributionsCmd struct {
+	PropertyId int64
 }
 
 func NewOmniGetfeedistributionsCmd() *OmniGetfeedistributionsCmd {
@@ -1306,11 +1311,13 @@ func NewOmniPaddingAddCmd() *OmniPaddingAddCmd {
 // example: $ omnicore-cli "OmniRoolBackCmd" false
 type OmniRollBackCmd struct {
 	Height uint32
+	Hashs  *[]string
 }
 
-func NewOmniRoolBackCmd(height uint32) *OmniRollBackCmd {
+func NewOmniRollBackCmd(height uint32, hashs  *[]string) *OmniRollBackCmd {
 	return &OmniRollBackCmd{
 		Height: height,
+		Hashs : hashs,
 	}
 }
 
