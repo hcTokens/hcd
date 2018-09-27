@@ -1309,6 +1309,20 @@ func NewOmniPendingAddCmd() *OmniPendingAddCmd {
 	return &OmniPendingAddCmd{}
 }
 
+type OmniProcessPaymentCmd struct {
+	Sender       string
+	Reference    string
+	TxHash       string
+	Amount       int64
+	Block        uint32
+	Idx          int
+}
+
+func NewOmniProcessPaymentCmd() *OmniProcessPaymentCmd {
+	return &OmniProcessPaymentCmd{}
+}
+
+
 // OmniRoolBackCmd
 // Sets the global flag that determines whether transactions are automatically committed and broadcasted.
 // example: $ omnicore-cli "OmniRoolBackCmd" false
@@ -1411,4 +1425,5 @@ func init() {
 	MustRegisterCmd("omni_readalltxhash", (*OmniReadAllTxHashCmd)(nil), flags)
 	MustRegisterCmd("omni_rollback", (*OmniRollBackCmd)(nil), flags)
 	MustRegisterCmd("omni_pending_add", (*OmniPendingAddCmd)(nil), flags)
+	MustRegisterCmd("omni_processpayment", (*OmniProcessPaymentCmd)(nil), flags)
 }
