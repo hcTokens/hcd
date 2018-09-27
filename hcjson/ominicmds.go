@@ -1304,6 +1304,18 @@ type OmniPaddingAddCmd struct {
 	MscType    int
 }
 
+
+type OmniPendingAddCmd struct {
+	TxId 	   string
+	Sender     string
+	MscType    int
+	Propertyid uint32
+	Amount     string
+	Subtract   bool
+}
+
+
+
 func NewOmniPaddingAddCmd() *OmniPaddingAddCmd {
 	return &OmniPaddingAddCmd{}
 }
@@ -1410,4 +1422,5 @@ func init() {
 	MustRegisterCmd("omni_readalltxhash", (*OmniReadAllTxHashCmd)(nil), flags)
 	MustRegisterCmd("omni_padding_add", (*OmniPaddingAddCmd)(nil), flags)
 	MustRegisterCmd("omni_rollback", (*OmniRollBackCmd)(nil), flags)
+	MustRegisterCmd("omni_pending_add", (*OmniPendingAddCmd)(nil), flags)
 }
