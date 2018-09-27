@@ -1142,6 +1142,7 @@ func NewOmniCreatepayloadCanceltradesbypairCmd(propertyidforsale int64, property
 // OmniCreatepayloadCancelalltrades // Creates the payload to cancel all offers on the distributed token exchange with the given currency pair.
 // example: $ omnicore-cli "omni_createpayload_cancelalltrades" 1
 type OmniCreatepayloadCancelalltradesCmd struct {
+	Ecosystem uint32 `json:"ecosystem" desc:"the ecosystem of the offers to cancel (1 for main ecosystem, 2 for test ecosystem)"`
 }
 
 func NewOmniCreatepayloadCancelalltradesCmd() *OmniCreatepayloadCancelalltradesCmd {
