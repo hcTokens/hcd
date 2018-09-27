@@ -1296,15 +1296,6 @@ func NewOmniReadAllTxHashCmd() *OmniReadAllTxHashCmd {
 	return &OmniReadAllTxHashCmd{}
 }
 
-type OmniPaddingAddCmd struct {
-	Sender     string
-	Propertyid int64
-	Amount     string
-	TxHash     string
-	MscType    int
-}
-
-
 type OmniPendingAddCmd struct {
 	TxId 	   string
 	Sender     string
@@ -1314,10 +1305,8 @@ type OmniPendingAddCmd struct {
 	Subtract   bool
 }
 
-
-
-func NewOmniPaddingAddCmd() *OmniPaddingAddCmd {
-	return &OmniPaddingAddCmd{}
+func NewOmniPendingAddCmd() *OmniPendingAddCmd {
+	return &OmniPendingAddCmd{}
 }
 
 // OmniRoolBackCmd
@@ -1420,7 +1409,6 @@ func init() {
 	MustRegisterCmd("omni_setautocommit", (*OmniSetautocommitCmd)(nil), flags)
 	MustRegisterCmd("omni_processtx", (*OmniProcessTxCmd)(nil), flags)
 	MustRegisterCmd("omni_readalltxhash", (*OmniReadAllTxHashCmd)(nil), flags)
-	MustRegisterCmd("omni_padding_add", (*OmniPaddingAddCmd)(nil), flags)
 	MustRegisterCmd("omni_rollback", (*OmniRollBackCmd)(nil), flags)
 	MustRegisterCmd("omni_pending_add", (*OmniPendingAddCmd)(nil), flags)
 }
