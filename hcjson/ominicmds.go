@@ -53,7 +53,7 @@ type OmniSenddexacceptCmd struct {
 	Toaddress   string `json:"toaddress" desc:"the address of the seller"`
 	Propertyid  int64  `json:"propertyid" desc:"the identifier of the token to purchase"`
 	Amount      string `json:"amount" desc:"the amount to accept"`
-	Override    *bool   `json:"override" desc:"override minimum accept fee and payment window checks (use with caution!)"`
+	Override    *bool  `json:"override" desc:"override minimum accept fee and payment window checks (use with caution!)"`
 }
 
 func NewOmniSenddexacceptCmd(fromaddress string, toaddress string, propertyid int64, amount string, override bool) *OmniSenddexacceptCmd {
@@ -493,6 +493,7 @@ func NewOmniGetbalanceCmd(address string, propertyid int64) *OmniGetbalanceCmd {
 // OmniGetallbalancesforid // Returns a list of token balances for a given currency or property identifier.
 // example: $ omnicore-cli "omni_getallbalancesforid" 1
 type OmniGetallbalancesforidCmd struct {
+	Propertyid int64 `json:"propertyid" desc:"the identifier of the tokens"`
 }
 
 func NewOmniGetallbalancesforidCmd() *OmniGetallbalancesforidCmd {
@@ -502,6 +503,7 @@ func NewOmniGetallbalancesforidCmd() *OmniGetallbalancesforidCmd {
 // OmniGetallbalancesforaddress // Returns a list of all token balances for a given address.
 // example: $ omnicore-cli "omni_getallbalancesforaddress" "1EXoDusjGwvnjZUyKkxZ4UHEf77z6A5S4P"
 type OmniGetallbalancesforaddressCmd struct {
+	Address string `json:"address" desc:"the address"`
 }
 
 func NewOmniGetallbalancesforaddressCmd() *OmniGetallbalancesforaddressCmd {
@@ -529,6 +531,7 @@ func NewOmniGetwalletaddressbalancesCmd() *OmniGetwalletaddressbalancesCmd {
 // OmniGettransaction // Get detailed information about an Omni transaction.
 // example: $ omnicore-cli "omni_gettransaction" "1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"
 type OmniGettransactionCmd struct {
+	Txid *string `json:"txid" desc:"the hash of the transaction to lookup"`
 }
 
 func NewOmniGettransactionCmd() *OmniGettransactionCmd {
@@ -595,7 +598,8 @@ func NewOmniListpropertiesCmd() *OmniListpropertiesCmd {
 // OmniGetproperty // Returns details for about the tokens or smart property to lookup.
 // example: $ omnicore-cli "omni_getproperty" 3
 type OmniGetpropertyCmd struct {
-	Propertyid int64 `json:"propertyid" desc:"the identifier of the tokens or property"`
+	Propertyid    int64  `json:"propertyid" desc:"the identifier of the tokens or property"`
+	CurrentHeight *int64 `json:"height" desc:"current block height"`
 }
 
 func NewOmniGetpropertyCmd() *OmniGetpropertyCmd {
@@ -1071,7 +1075,7 @@ func NewOmniCreatepayloadRevokeCmd(propertyid int64, amount string, memo *string
 // OmniCreatepayloadChangeissuer // Creates the payload to change the issuer on record of the given tokens.
 // example: $ omnicore-cli "omni_createpayload_changeissuer" 3
 type OmniCreatepayloadChangeissuerCmd struct {
-	Propertyid int64   `json:"propertyid" desc:"the identifier of the tokens to revoke"`
+	Propertyid int64 `json:"propertyid" desc:"the identifier of the tokens to revoke"`
 }
 
 func NewOmniCreatepayloadChangeissuerCmd() *OmniCreatepayloadChangeissuerCmd {
@@ -1142,6 +1146,7 @@ func NewOmniCreatepayloadCancelalltradesCmd() *OmniCreatepayloadCancelalltradesC
 // OmniCreatepayloadEnablefreezing // Creates the payload to enable address freezing for a centrally managed property.
 // example: $ omnicore-cli "omni_createpayload_enablefreezing" 3
 type OmniCreatepayloadEnablefreezingCmd struct {
+	Propertyid int64 `json:"propertyid" desc:"the identifier of the tokens"`
 }
 
 func NewOmniCreatepayloadEnablefreezingCmd() *OmniCreatepayloadEnablefreezingCmd {
@@ -1152,6 +1157,7 @@ func NewOmniCreatepayloadEnablefreezingCmd() *OmniCreatepayloadEnablefreezingCmd
 // IMPORTANT NOTE:  Disabling freezing for a property will UNFREEZE all frozen addresses for that property!
 // example: $ omnicore-cli "omni_createpayload_disablefreezing" 3
 type OmniCreatepayloadDisablefreezingCmd struct {
+	Propertyid int64 `json:"propertyid" desc:"the identifier of the tokens"`
 }
 
 func NewOmniCreatepayloadDisablefreezingCmd() *OmniCreatepayloadDisablefreezingCmd {
@@ -1288,13 +1294,12 @@ type OmniPaddingAddCmd struct {
 	Propertyid int64
 	Amount     string
 	TxHash     string
-	MscType		int
+	MscType    int
 }
 
 func NewOmniPaddingAddCmd() *OmniPaddingAddCmd {
 	return &OmniPaddingAddCmd{}
 }
-
 
 // OmniRoolBackCmd
 // Sets the global flag that determines whether transactions are automatically committed and broadcasted.
