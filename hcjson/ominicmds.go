@@ -529,6 +529,7 @@ func NewOmniGetwalletaddressbalancesCmd() *OmniGetwalletaddressbalancesCmd {
 // OmniGettransaction // Get detailed information about an Omni transaction.
 // example: $ omnicore-cli "omni_gettransaction" "1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"
 type OmniGettransactionCmd struct {
+	TxId	string
 }
 
 func NewOmniGettransactionCmd() *OmniGettransactionCmd {
@@ -716,6 +717,7 @@ func NewOmniGetactivationsCmd() *OmniGetactivationsCmd {
 // OmniGetpayload // Get the payload for an Omni transaction.
 // example: $ omnicore-cli "omni_getactivations" "1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"
 type OmniGetpayloadCmd struct {
+	TxHash string
 }
 
 func NewOmniGetpayloadCmd() *OmniGetpayloadCmd {
@@ -1255,6 +1257,7 @@ func NewOmniGetfeedistributionsCmd() *OmniGetfeedistributionsCmd {
 // OmniSetautocommit // Sets the global flag that determines whether transactions are automatically committed and broadcasted.
 // example: $ omnicore-cli "omni_setautocommit" false
 type OmniSetautocommitCmd struct {
+	AutoCommit bool
 }
 
 func NewOmniSetautocommitCmd() *OmniSetautocommitCmd {
