@@ -1,5 +1,5 @@
 // Copyright (c) 2014-2015 The btcsuite developers
-// Copyright (c) 2015-2017 The Decred developers 
+// Copyright (c) 2015-2017 The Decred developers
 // Copyright (c) 2018-2020 The Hc developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
@@ -47,6 +47,16 @@ func NewLoadTxFilterCmd(reload bool, addresses []string, outPoints []OutPoint) *
 		Reload:    reload,
 		Addresses: addresses,
 		OutPoints: outPoints,
+	}
+}
+
+type SetHcdParmasCmd struct {
+	EnableOmni bool
+}
+
+func NewSetHcdParmasCmd(enableOmni bool) *SetHcdParmasCmd {
+	return &SetHcdParmasCmd{
+		EnableOmni: enableOmni,
 	}
 }
 
@@ -165,9 +175,9 @@ func NewRescanCmd(blockHashes string) *RescanCmd {
 func init() {
 	// The commands in this file are only usable by websockets.
 	flags := UFWebsocketOnly
-
 	MustRegisterCmd("authenticate", (*AuthenticateCmd)(nil), flags)
 	MustRegisterCmd("loadtxfilter", (*LoadTxFilterCmd)(nil), flags)
+	MustRegisterCmd("setParams", (*SetHcdParmasCmd)(nil), flags)
 	MustRegisterCmd("notifyblocks", (*NotifyBlocksCmd)(nil), flags)
 	MustRegisterCmd("notifynewtransactions", (*NotifyNewTransactionsCmd)(nil), flags)
 	MustRegisterCmd("notifynewtickets", (*NotifyNewTicketsCmd)(nil), flags)
