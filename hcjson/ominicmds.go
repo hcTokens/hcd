@@ -561,6 +561,7 @@ func NewOmniListtransactionsCmd(txid *string, count *int64, skip *int64, startbl
 // OmniListblocktransactions // Lists all Omni transactions in a block.
 // example: $ omnicore-cli "omni_listblocktransactions" 279007
 type OmniListblocktransactionsCmd struct {
+	Height int64 `json:"height" desc:"specific height to query"`
 }
 
 func NewOmniListblocktransactionsCmd() *OmniListblocktransactionsCmd {
@@ -571,6 +572,7 @@ func NewOmniListblocktransactionsCmd() *OmniListblocktransactionsCmd {
 // Note: the validity of pending transactions is uncertain, and the state of the memory pool may change at any moment. It is recommended to check transactions after confirmation, and pending transactions should be considered as invalid.
 // example: $ omnicore-cli "omni_listpendingtransactions"
 type OmniListpendingtransactionsCmd struct {
+	Address *string `json:"address" desc:"filter results by address (default: "" for no filter)"`
 }
 
 func NewOmniListpendingtransactionsCmd() *OmniListpendingtransactionsCmd {
@@ -632,7 +634,7 @@ func NewOmniGetcrowdsaleCmd(propertyid int64, verbose *bool) *OmniGetcrowdsaleCm
 // OmniGetgrants // Returns information about granted and revoked units of managed tokens.
 // example: $ omnicore-cli "omni_getgrants" 31
 type OmniGetgrantsCmd struct {
-	PropertyId	int64
+	PropertyId int64
 }
 
 func NewOmniGetgrantsCmd() *OmniGetgrantsCmd {
@@ -656,7 +658,7 @@ func NewOmniGetstoCmd(txid string, recipientfilter *string) *OmniGetstoCmd {
 // OmniGettrade // Get detailed information and trade matches for orders on the distributed token exchange.
 // example: $ omnicore-cli "omni_gettrade" "1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d"
 type OmniGettradeCmd struct {
-	Txid string  `json:"txid" desc:"the hash of the order to lookup"`
+	Txid string `json:"txid" desc:"the hash of the order to lookup"`
 }
 
 func NewOmniGettradeCmd() *OmniGettradeCmd {
@@ -1035,8 +1037,6 @@ func NewOmniCreatepayloadIssuancemanagedCmd(ecosystem int64, typo int64, previou
 // OmniCreatepayloadClosecrowdsale // Creates the payload to manually close a crowdsale.
 // example: $ omnicore-cli "omni_createpayload_closecrowdsale" 70
 type OmniCreatepayloadClosecrowdsaleCmd struct {
-	Propertyid uint32 `json:"previousid" desc:"the identifier of the crowdsale to close"`
-
 }
 
 func NewOmniCreatepayloadClosecrowdsaleCmd() *OmniCreatepayloadClosecrowdsaleCmd {
@@ -1142,7 +1142,6 @@ func NewOmniCreatepayloadCanceltradesbypairCmd(propertyidforsale int64, property
 // OmniCreatepayloadCancelalltrades // Creates the payload to cancel all offers on the distributed token exchange with the given currency pair.
 // example: $ omnicore-cli "omni_createpayload_cancelalltrades" 1
 type OmniCreatepayloadCancelalltradesCmd struct {
-	Ecosystem uint32 `json:"ecosystem" desc:"the ecosystem of the offers to cancel (1 for main ecosystem, 2 for test ecosystem)"`
 }
 
 func NewOmniCreatepayloadCancelalltradesCmd() *OmniCreatepayloadCancelalltradesCmd {
@@ -1245,7 +1244,7 @@ func NewOmniGetfeeshareCmd(address *string, ecosystem *int64) *OmniGetfeeshareCm
 // A distribution ID must be supplied to identify the distribution to obtain data for.
 // example: $ omnicore-cli "omni_getfeedistribution" 1
 type OmniGetfeedistributionCmd struct {
-	Distributionid	int64
+	Distributionid int64
 }
 
 func NewOmniGetfeedistributionCmd() *OmniGetfeedistributionCmd {
@@ -1300,7 +1299,7 @@ func NewOmniReadAllTxHashCmd() *OmniReadAllTxHashCmd {
 }
 
 type OmniPendingAddCmd struct {
-	TxId 	   string
+	TxId       string
 	Sender     string
 	MscType    int
 	Propertyid uint32
@@ -1313,18 +1312,17 @@ func NewOmniPendingAddCmd() *OmniPendingAddCmd {
 }
 
 type OmniProcessPaymentCmd struct {
-	Sender       string
-	Reference    string
-	TxHash       string
-	Amount       int64
-	Block        uint32
-	Idx          int
+	Sender    string
+	Reference string
+	TxHash    string
+	Amount    int64
+	Block     uint32
+	Idx       int
 }
 
 func NewOmniProcessPaymentCmd() *OmniProcessPaymentCmd {
 	return &OmniProcessPaymentCmd{}
 }
-
 
 // OmniRoolBackCmd
 // Sets the global flag that determines whether transactions are automatically committed and broadcasted.
@@ -1334,10 +1332,10 @@ type OmniRollBackCmd struct {
 	Hashs  *[]string
 }
 
-func NewOmniRollBackCmd(height uint32, hashs  *[]string) *OmniRollBackCmd {
+func NewOmniRollBackCmd(height uint32, hashs *[]string) *OmniRollBackCmd {
 	return &OmniRollBackCmd{
 		Height: height,
-		Hashs : hashs,
+		Hashs:  hashs,
 	}
 }
 
