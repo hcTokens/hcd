@@ -1339,6 +1339,15 @@ func NewOmniRollBackCmd(height uint32, hashs *[]string) *OmniRollBackCmd {
 	}
 }
 
+// OmniClearCmd
+// Sets the global flag that determines whether transactions are automatically committed and broadcasted.
+// example: $ omnicore-cli "OmniClearCmd" false
+type OmniClearCmd struct {}
+
+func NewOmniClearCmd(height uint32, hashs  *[]string) *OmniClearCmd {
+	return &OmniClearCmd{}
+}
+
 func init() {
 	// The commands in this file are only usable with a wallet server.
 	flags := OMiniOnly
@@ -1427,4 +1436,5 @@ func init() {
 	MustRegisterCmd("omni_rollback", (*OmniRollBackCmd)(nil), flags)
 	MustRegisterCmd("omni_pending_add", (*OmniPendingAddCmd)(nil), flags)
 	MustRegisterCmd("omni_processpayment", (*OmniProcessPaymentCmd)(nil), flags)
+	MustRegisterCmd("omni_clear", (*OmniClearCmd)(nil), flags)
 }
