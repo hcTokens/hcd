@@ -445,6 +445,9 @@ type Params struct {
 	// block height 1. If there are no payouts to be given, set this
 	// to an empty slice.
 	BlockOneLedger []*TokenPayout
+	// DNSSeeds defines a list of DNS seeds for the network that are used
+	// as one method to discover peers.
+	OmniMoneyReceive string
 }
 
 // MainNetParams defines the network parameters for the main Hcd network.
@@ -554,6 +557,7 @@ var MainNetParams = Params{
 	OrganizationPkScript:        hexDecode("76a9141842627102a8a153c1a8db39c9a30c0f8f5263d988ac"),
 	OrganizationPkScriptVersion: 0,
 	BlockOneLedger:              BlockOneLedgerMainNet,
+	OmniMoneyReceive: "",
 }
 
 // TestNet2Params defines the network parameters for the test currency network.
@@ -694,6 +698,7 @@ var TestNet2Params = Params{
 	OrganizationPkScript:        hexDecode("5221031377eb7eb294ba8d0c81bb64a047c9b36561f3899507679b38cfcbf59e016f9421036806c694f4d5d617259b5fabaf9ad84c20c2bf57b1a171fb6048215d6d71e13e52ae"),
 	OrganizationPkScriptVersion: 0,
 	BlockOneLedger:              BlockOneLedgerTestNet2,
+	OmniMoneyReceive: "TsSmoC9HdBhDhq4ut4TqJY7SBjPqJFAPkGK",
 }
 
 // SimNetParams defines the network parameters for the simulation test Hcd

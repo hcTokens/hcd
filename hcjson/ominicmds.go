@@ -1348,6 +1348,21 @@ func NewOmniClearCmd(height uint32, hashs  *[]string) *OmniClearCmd {
 	return &OmniClearCmd{}
 }
 
+// TXExodusFundraiserCmd
+// Sets the global flag that determines whether transactions are automatically committed and broadcasted.
+// example: $ omnicore-cli "TXExodusFundraiserCmd" false
+type OmniTXExodusFundraiserCmd struct{
+	Hash string
+	StrSender  string
+	NBlock int
+	AmountInvested int64
+	NTime int32
+}
+
+func NewTXExodusFundraiserCmd() *OmniTXExodusFundraiserCmd {
+	return &OmniTXExodusFundraiserCmd{}
+}
+
 func init() {
 	// The commands in this file are only usable with a wallet server.
 	flags := OMiniOnly
@@ -1437,4 +1452,5 @@ func init() {
 	MustRegisterCmd("omni_pending_add", (*OmniPendingAddCmd)(nil), flags)
 	MustRegisterCmd("omni_processpayment", (*OmniProcessPaymentCmd)(nil), flags)
 	MustRegisterCmd("omni_clear", (*OmniClearCmd)(nil), flags)
+	MustRegisterCmd("omni_txexodus_fundraiser", (*OmniTXExodusFundraiserCmd)(nil), flags)
 }
