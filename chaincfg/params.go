@@ -557,7 +557,7 @@ var MainNetParams = Params{
 	OrganizationPkScript:        hexDecode("76a9141842627102a8a153c1a8db39c9a30c0f8f5263d988ac"),
 	OrganizationPkScriptVersion: 0,
 	BlockOneLedger:              BlockOneLedgerMainNet,
-	OmniMoneyReceive: "",
+	OmniMoneyReceive:            "",
 }
 
 // TestNet2Params defines the network parameters for the test currency network.
@@ -567,10 +567,10 @@ var TestNet2Params = Params{
 	Name:        "testnet2",
 	Net:         wire.TestNet2,
 	DefaultPort: "12008",
-	DNSSeeds:    []string{
-		//	"testnet1.h.cash",
-		//	"testnet2.h.cash",
-		//	"testnet3.h.cash",
+	DNSSeeds: []string{
+		"testnet1.h.cash",
+		"testnet2.h.cash",
+		"testnet3.h.cash",
 	},
 
 	// Chain parameters
@@ -583,11 +583,11 @@ var TestNet2Params = Params{
 	GenerateSupported:        true,
 	MaximumBlockSizes:        []int{1310720},
 	MaxTxSize:                1000000,
-	TargetTimePerBlock:       time.Second * 30,
+	TargetTimePerBlock:       time.Minute,
 	WorkDiffAlpha:            1,
 	WorkDiffWindowSize:       144,
 	WorkDiffWindows:          20,
-	TargetTimespan:           time.Second * 30 * 144, // TimePerBlock * WindowSize
+	TargetTimespan:           time.Minute * 144, // TimePerBlock * WindowSize
 	RetargetAdjustmentFactor: 4,
 
 	// Subsidy parameters.
@@ -688,7 +688,7 @@ var TestNet2Params = Params{
 	StakeVersionInterval:    144 * 2 * 7, // ~1 week
 	MaxFreshStakePerBlock:   20,          // 4*TicketsPerBlock
 	StakeEnabledHeight:      16 + 16,     // CoinbaseMaturity + TicketMaturity
-	StakeValidationHeight:   10775,       // Arbitrary
+	StakeValidationHeight:   775,         // Arbitrary
 	StakeBaseSigScript:      []byte{0x00, 0x00},
 	StakeMajorityMultiplier: 3,
 	StakeMajorityDivisor:    4,
@@ -698,7 +698,7 @@ var TestNet2Params = Params{
 	OrganizationPkScript:        hexDecode("5221031377eb7eb294ba8d0c81bb64a047c9b36561f3899507679b38cfcbf59e016f9421036806c694f4d5d617259b5fabaf9ad84c20c2bf57b1a171fb6048215d6d71e13e52ae"),
 	OrganizationPkScriptVersion: 0,
 	BlockOneLedger:              BlockOneLedgerTestNet2,
-	OmniMoneyReceive: "TsSmoC9HdBhDhq4ut4TqJY7SBjPqJFAPkGK",
+	OmniMoneyReceive:            "TsSmoC9HdBhDhq4ut4TqJY7SBjPqJFAPkGK",
 }
 
 // SimNetParams defines the network parameters for the simulation test Hcd
